@@ -1,27 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:memo_everywhere/go_router.dart';
+import 'package:memo_everywhere/provider_observer.dart';
 
 void main() {
-  runApp(MaterialApp(home: MyApp()));
+  runApp(
+      ProviderScope(observers: [Logger()], child: _App())
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class _App extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {},
-              child: Text('종마루'),
-            ),
-          ]
-        ),
-      ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      routerConfig: ref.read(routerProvider),
     );
   }
 }
