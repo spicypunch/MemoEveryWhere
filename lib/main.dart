@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:memo_everywhere/go_router.dart';
-import 'package:memo_everywhere/provider_observer.dart';
+import 'package:memo_everywhere/shared/provider_observer.dart';
+import 'package:memo_everywhere/shared/go_router.dart';
 
 void main() {
   runApp(
