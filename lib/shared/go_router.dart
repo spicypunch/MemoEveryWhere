@@ -1,37 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:memo_everywhere/features/detail/detail_screen.dart';
-import 'package:memo_everywhere/features/login/login_screen.dart';
-import 'package:memo_everywhere/features/settings/settings_screen.dart';
-import 'package:memo_everywhere/features/signup/signup_screen.dart';
 
-import '../features/main/main_screen.dart';
+import '../presentation/auth/login_screen.dart';
+import '../presentation/auth/register_screen.dart';
+import '../presentation/detail/detail_screen.dart';
+import '../presentation/home/home_screen.dart';
+import '../presentation/settings/settings_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
     return GoRouter(
-      initialLocation: '/login',
+      initialLocation: '/auth',
       redirect: (BuildContext context, GoRouterState state) {
         return null;
       },
       routes: [
         GoRoute(
-          path: '/login',
-          name: 'login',
+          path: '/auth',
+          name: 'auth',
           builder: (context, state) => LoginScreen(),
           routes: [
             GoRoute(
               path: 'signup',
               name: 'signup',
-              builder: (context, state) => SignupScreen(),
+              builder: (context, state) => RegisterScreen(),
             )
           ],
         ),
         GoRoute(
-          path: '/main',
-          name: 'main',
-          builder: (context, state) => MainScreen(),
+          path: '/home',
+          name: 'home',
+          builder: (context, state) => HomeScreen(),
           routes: [
             GoRoute(
               path: 'detail/:id',

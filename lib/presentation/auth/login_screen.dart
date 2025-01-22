@@ -19,21 +19,21 @@ class LoginScreen extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '로그인',
+                'Email',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               DefaultTextFormField(label: 'email'),
               Text(
-                '비밀번호',
+                'PassWord',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               DefaultTextFormField(label: 'password'),
-              DefaultButton(title: '로그인', onTap: () {}),
+              DefaultButton(title: 'Login', onTap: () {}),
               Center(
                 child: InkWell(
                   onTap: () {},
                   child: Text(
-                    '회원가입',
+                    'SignUpff',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       fontSize: 16,
