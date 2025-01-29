@@ -1,5 +1,7 @@
-import 'package:memo_everywhere/domain/entity/auth_user.dart';
+import 'package:memo_everywhere/domain/entity/user.dart';
 
 abstract class Repository {
-  Future<AuthUser> signIn(String email, String passWord);
+  Future<void> signIn(String email, String passWord);
+  Future<void> signup(String email, String passWord);
+  Future<void> signOut();
 }

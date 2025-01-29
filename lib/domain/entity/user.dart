@@ -1,9 +1,10 @@
-class AuthUser {
+class User {
   final String email;
   final String passWord;
 
-  AuthUser({
+  User({
     required this.email,
     required this.passWord,
   });
+
 }
