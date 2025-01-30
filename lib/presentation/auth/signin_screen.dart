@@ -4,8 +4,8 @@ import 'package:memo_everywhere/shared/components/default_button.dart';
 import 'package:memo_everywhere/shared/components/default_layout.dart';
 import 'package:memo_everywhere/shared/components/default_text_field.dart';
 
-class LoginScreen extends ConsumerWidget {
-  const LoginScreen({super.key});
+class SignInScreen extends ConsumerWidget {
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,23 +17,27 @@ class LoginScreen extends ConsumerWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'Email',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               DefaultTextFormField(label: 'email'),
+              SizedBox(height: 20),
               Text(
                 'PassWord',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               DefaultTextFormField(label: 'password'),
+              SizedBox(height: 80),
               DefaultButton(title: 'Login', onTap: () {}),
+              SizedBox(height: 80),
               Center(
                 child: InkWell(
                   onTap: () {},
                   child: Text(
-                    'SignUpff',
+                    'SignUp',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       fontSize: 16,

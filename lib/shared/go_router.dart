@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../presentation/auth/login_screen.dart';
-import '../presentation/auth/register_screen.dart';
+import '../presentation/auth/signin_screen.dart';
+import '../presentation/auth/signup_screen.dart';
 import '../presentation/detail/detail_screen.dart';
 import '../presentation/home/home_screen.dart';
 import '../presentation/settings/settings_screen.dart';
@@ -11,20 +11,20 @@ import '../presentation/settings/settings_screen.dart';
 final routerProvider = Provider<GoRouter>(
   (ref) {
     return GoRouter(
-      initialLocation: '/auth',
+      initialLocation: '/signin',
       redirect: (BuildContext context, GoRouterState state) {
         return null;
       },
       routes: [
         GoRoute(
-          path: '/auth',
-          name: 'auth',
-          builder: (context, state) => LoginScreen(),
+          path: '/signin',
+          name: 'signin',
+          builder: (context, state) => SignInScreen(),
           routes: [
             GoRoute(
               path: 'signup',
               name: 'signup',
-              builder: (context, state) => RegisterScreen(),
+              builder: (context, state) => SignUpScreen(),
             )
           ],
         ),
