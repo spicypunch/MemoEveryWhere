@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:memo_everywhere/shared/components/default_button.dart';
 import 'package:memo_everywhere/shared/components/default_layout.dart';
 import 'package:memo_everywhere/shared/components/default_text_field.dart';
@@ -16,36 +17,46 @@ class SignInScreen extends ConsumerWidget {
             horizontal: 20.0,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Email',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Email',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    DefaultTextFormField(label: 'email'),
+                    SizedBox(height: 20),
+                    Text(
+                      'PassWord',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    DefaultTextFormField(label: 'password'),
+                    SizedBox(height: 80),
+                    DefaultButton(title: 'Login', onTap: () {}),
+                  ],
+                ),
               ),
-              DefaultTextFormField(label: 'email'),
-              SizedBox(height: 20),
-              Text(
-                'PassWord',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              DefaultTextFormField(label: 'password'),
-              SizedBox(height: 80),
-              DefaultButton(title: 'Login', onTap: () {}),
-              SizedBox(height: 80),
-              Center(
-                child: InkWell(
-                  onTap: () {},
-                  child: Text(
-                    'SignUp',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
+              Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: Center(
+                  child: InkWell(
+                    onTap: () {
+                      context.goNamed("signup");
+                    },
+                    child: Text(
+                      'SignUp',
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold
+                      ),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
