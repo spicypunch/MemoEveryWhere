@@ -8,7 +8,7 @@ final supabaseClientProvider = Provider<SupabaseClient>((ref) {
   return Supabase.instance.client;
 });
 
-final repositoryProvier = Provider<Repository>((ref) {
+final repositoryProvider = Provider<Repository>((ref) {
   final supabaseClient = ref.watch(supabaseClientProvider);
   return RepositoryImpl(supabaseClient);
 });

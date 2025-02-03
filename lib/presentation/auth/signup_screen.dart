@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:memo_everywhere/presentation/auth/auth_provider.dart';
 
 import '../../shared/components/default_button.dart';
 import '../../shared/components/default_layout.dart';
@@ -25,23 +26,28 @@ class SignUpScreen extends ConsumerWidget {
                   children: [
                     Text(
                       'Email',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     DefaultTextFormField(label: 'email'),
                     SizedBox(height: 20),
                     Text(
                       'PassWord',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     DefaultTextFormField(label: 'password'),
                     SizedBox(height: 20),
                     Text(
                       'Confirm PassWord',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     DefaultTextFormField(label: 'confirm password'),
                     SizedBox(height: 80),
-                    DefaultButton(title: 'Sign Up', onTap: () {}),
+                    DefaultButton(title: 'Sign Up', onTap: () {
+                      ref.read(authProvider.notifier).signIn("test@example.com", "Test123!@#");
+                    }),
                   ],
                 ),
               ),
@@ -57,8 +63,7 @@ class SignUpScreen extends ConsumerWidget {
                       style: TextStyle(
                           decoration: TextDecoration.underline,
                           fontSize: 16,
-                          fontWeight: FontWeight.bold
-                      ),
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
