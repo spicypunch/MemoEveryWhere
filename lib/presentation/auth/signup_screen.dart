@@ -1,16 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memo_everywhere/presentation/auth/auth_provider.dart';
 
 import '../../shared/components/default_button.dart';
 import '../../shared/components/default_layout.dart';
 import '../../shared/components/default_text_field.dart';
 
-class SignUpScreen extends ConsumerWidget {
+class SignUpScreen extends HookConsumerWidget {
   const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final emailController = useTextEditingController();
+    final pwController = useTextEditingController();
+    final pwConfirmController = useTextEditingController();
+
+    final isEmailValid = useState(false);
+    final isPwMatched = useState(false);
+
+    useEffect(() {
+      void validateEmail() {
+        final email = emailController.text;
+        final emailRegex = RegExp(
+          r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+        );
+        isEmailValid.value = emailRegex.hasMatch(email);
+      }
+
+      emailController.addListener(validateEmail);
+      return () => emailController.removeListener(validateEmail);
+    }, [emailController]);
+
+    useEffect(() {
+      void validatePw() {
+        isPwMatched.value = pwController.text == pwConfirmController.text;
+      }
+
+      pwController.removeListener(validatePw);
+      pwConfirmController.removeListener(validatePw);
+
+      return () {
+        pwController.removeListener(validatePw);
+        pwConfirmController.removeListener(validatePw);
+      };
+    }, [pwController, pwConfirmController]);
+
+    final isFormValid = isEmailValid.value && isPwMatched.value;
+
     return DefaultLayout(
       child: SafeArea(
         child: Padding(
@@ -29,25 +66,41 @@ class SignUpScreen extends ConsumerWidget {
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    DefaultTextFormField(label: 'email'),
+                    DefaultTextFormField(
+                      label: 'email',
+                      controller: emailController,
+                    ),
                     SizedBox(height: 20),
                     Text(
                       'PassWord',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    DefaultTextFormField(label: 'password'),
+                    DefaultTextFormField(
+                      label: 'password',
+                      controller: pwController,
+                    ),
                     SizedBox(height: 20),
                     Text(
                       'Confirm PassWord',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    DefaultTextFormField(label: 'confirm password'),
+                    DefaultTextFormField(
+                      label: 'confirm password',
+                      controller: pwConfirmController,
+                    ),
                     SizedBox(height: 80),
-                    DefaultButton(title: 'Sign Up', onTap: () {
-                      ref.read(authProvider.notifier).signIn("test@example.com", "Test123!@#");
-                    }),
+                    DefaultButton(
+                        title: 'Sign Up',
+                        onTap: isFormValid
+                            ? () {
+                                ref.read(authProvider.notifier).signUp(
+                                      emailController.text,
+                                      pwController.text,
+                                    );
+                              }
+                            : null),
                   ],
                 ),
               ),
