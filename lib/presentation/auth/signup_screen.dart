@@ -12,7 +12,7 @@ class SignUpScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authProvider);
+    // final state = ref.watch(authProvider);
 
     final emailController = useTextEditingController();
     final pwController = useTextEditingController();
@@ -79,10 +79,10 @@ class SignUpScreen extends HookConsumerWidget {
                       isEnabled: isFormValid,
                       onTap: isFormValid
                           ? () {
-                              ref.read(authProvider.notifier).signUp(
-                                    emailController.text,
-                                    pwController.text,
-                                  );
+                              // ref.read(authProvider.notifier).signUp(
+                              //       emailController.text,
+                              //       pwController.text,
+                              //     );
                             }
                           : null,
                     ),

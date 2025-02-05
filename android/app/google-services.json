@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "733929455796",
+    "project_id": "memoeverywhere-b3cfb",
+    "storage_bucket": "memoeverywhere-b3cfb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733929455796:android:f4d43a446ed750dcdb17e1",
+        "android_client_info": {
+          "package_name": "kr.jm.memo_everywhere"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_tUiZTXt9mmTMgA2YifU569NY6jZRt1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
