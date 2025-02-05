@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:memo_everywhere/data/provider/supabase_provicer.dart';
 import 'package:memo_everywhere/domain/repository.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 sealed class AuthState {
   const AuthState();
@@ -20,12 +21,12 @@ class AuthSuccess extends AuthState {
 
 class AuthError extends AuthState {
   final String message;
+
   const AuthError(this.message);
 }
 
-final authProvider = AsyncNotifierProvider<AuthProvider, AuthState>(
-    () => AuthProvider()
-);
+final authProvider =
+    AsyncNotifierProvider<AuthProvider, AuthState>(() => AuthProvider());
 
 class AuthProvider extends AsyncNotifier<AuthState> {
   late final Repository _repository;
@@ -54,6 +55,9 @@ class AuthProvider extends AsyncNotifier<AuthState> {
       try {
         await _repository.signup(email, password);
         return const AuthSuccess();
+      } on AuthException catch (e) {
+        // if (e.message.contains('User ale'))
+        return AuthError(e.toString());
       } catch (e) {
         return AuthError(e.toString());
       }

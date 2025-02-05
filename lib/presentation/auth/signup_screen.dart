@@ -12,41 +12,38 @@ class SignUpScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(authProvider);
+
+    state.when(
+      data: (state) {
+        switch (state) {
+          case AuthSuccess():
+            print('회원가입 성공');
+        // 성공 처리 (예: 홈 화면으로 이동)
+          case AuthError(message: String message):
+            print('에러 발생: $message');
+        // 에러 메시지 표시
+          case AuthLoading():
+            print('로딩 중');
+        // 로딩 표시
+          case AuthInitial():
+            print('초기 상태');
+        }
+      },
+      loading: () => print('로딩 중'),
+      error: (error, stack) => print('에러: $error'),
+    );
     final emailController = useTextEditingController();
     final pwController = useTextEditingController();
     final pwConfirmController = useTextEditingController();
 
-    final isEmailValid = useState(false);
-    final isPwMatched = useState(false);
+    final (isEmailValid, isPwMatched) = useSignUpValidation(
+      emailController: emailController,
+      pwController: pwController,
+      pwConfirmController: pwConfirmController,
+    );
 
-    useEffect(() {
-      void validateEmail() {
-        final email = emailController.text;
-        final emailRegex = RegExp(
-          r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-        );
-        isEmailValid.value = emailRegex.hasMatch(email);
-      }
-
-      emailController.addListener(validateEmail);
-      return () => emailController.removeListener(validateEmail);
-    }, [emailController]);
-
-    useEffect(() {
-      void validatePw() {
-        isPwMatched.value = pwController.text == pwConfirmController.text;
-      }
-
-      pwController.removeListener(validatePw);
-      pwConfirmController.removeListener(validatePw);
-
-      return () {
-        pwController.removeListener(validatePw);
-        pwConfirmController.removeListener(validatePw);
-      };
-    }, [pwController, pwConfirmController]);
-
-    final isFormValid = isEmailValid.value && isPwMatched.value;
+    final isFormValid = isEmailValid && isPwMatched;
 
     return DefaultLayout(
       child: SafeArea(
@@ -69,6 +66,7 @@ class SignUpScreen extends HookConsumerWidget {
                     DefaultTextFormField(
                       label: 'email',
                       controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
                     ),
                     SizedBox(height: 20),
                     Text(
@@ -79,6 +77,8 @@ class SignUpScreen extends HookConsumerWidget {
                     DefaultTextFormField(
                       label: 'password',
                       controller: pwController,
+                      obscureText: true,
+                      keyboardType: TextInputType.text,
                     ),
                     SizedBox(height: 20),
                     Text(
@@ -89,6 +89,8 @@ class SignUpScreen extends HookConsumerWidget {
                     DefaultTextFormField(
                       label: 'confirm password',
                       controller: pwConfirmController,
+                      obscureText: true,
+                      keyboardType: TextInputType.text,
                     ),
                     SizedBox(height: 80),
                     DefaultButton(
@@ -127,4 +129,44 @@ class SignUpScreen extends HookConsumerWidget {
       ),
     );
   }
+}
+
+(bool, bool) useSignUpValidation({
+  required TextEditingController emailController,
+  required TextEditingController pwController,
+  required TextEditingController pwConfirmController,
+}) {
+  final isEmailValid = useState(false);
+  final isPwMatched = useState(false);
+
+  useEffect(() {
+    void validateEmail() {
+      final email = emailController.text;
+      final emailRegex = RegExp(
+        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+      );
+      isEmailValid.value = emailRegex.hasMatch(email);
+    }
+
+    emailController.addListener(validateEmail);
+    return () => emailController.removeListener(validateEmail);
+  }, [emailController]);
+
+  useEffect(() {
+    void validatePw() {
+      isPwMatched.value = pwController.text == pwConfirmController.text &&
+          pwController.text.isNotEmpty &&
+          pwConfirmController.text.isNotEmpty;
+    }
+
+    pwController.addListener(validatePw);
+    pwConfirmController.addListener(validatePw);
+
+    return () {
+      pwController.removeListener(validatePw);
+      pwConfirmController.removeListener(validatePw);
+    };
+  }, [pwController, pwConfirmController]);
+
+  return (isEmailValid.value, isPwMatched.value);
 }
