@@ -14,25 +14,6 @@ class SignUpScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authProvider);
 
-    state.when(
-      data: (state) {
-        switch (state) {
-          case AuthSuccess():
-            print('회원가입 성공');
-        // 성공 처리 (예: 홈 화면으로 이동)
-          case AuthError(message: String message):
-            print('에러 발생: $message');
-        // 에러 메시지 표시
-          case AuthLoading():
-            print('로딩 중');
-        // 로딩 표시
-          case AuthInitial():
-            print('초기 상태');
-        }
-      },
-      loading: () => print('로딩 중'),
-      error: (error, stack) => print('에러: $error'),
-    );
     final emailController = useTextEditingController();
     final pwController = useTextEditingController();
     final pwConfirmController = useTextEditingController();
@@ -94,15 +75,17 @@ class SignUpScreen extends HookConsumerWidget {
                     ),
                     SizedBox(height: 80),
                     DefaultButton(
-                        title: 'Sign Up',
-                        onTap: isFormValid
-                            ? () {
-                                ref.read(authProvider.notifier).signUp(
-                                      emailController.text,
-                                      pwController.text,
-                                    );
-                              }
-                            : null),
+                      title: 'Sign Up',
+                      isEnabled: isFormValid,
+                      onTap: isFormValid
+                          ? () {
+                              ref.read(authProvider.notifier).signUp(
+                                    emailController.text,
+                                    pwController.text,
+                                  );
+                            }
+                          : null,
+                    ),
                   ],
                 ),
               ),

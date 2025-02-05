@@ -29,6 +29,7 @@ class RepositoryImpl implements Repository {
       final response = await _client.auth.signUp(
         email: email,
         password: passWord,
+        emailRedirectTo: null,
       );
       return response.user != null;
     } catch (e) {
