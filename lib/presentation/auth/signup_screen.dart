@@ -79,10 +79,10 @@ class SignUpScreen extends HookConsumerWidget {
                       isEnabled: isFormValid,
                       onTap: isFormValid
                           ? () {
-                              // ref.read(authProvider.notifier).signUp(
-                              //       emailController.text,
-                              //       pwController.text,
-                              //     );
+                              ref.read(authProvider.notifier).signUp(
+                                    emailController.text,
+                                    pwController.text,
+                                  );
                             }
                           : null,
                     ),
