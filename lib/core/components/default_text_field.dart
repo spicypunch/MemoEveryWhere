@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ colors/default_colors.dart';
+import '../colors/default_colors.dart';
 
 typedef FormFieldValidator = String? Function(String?);
 typedef OnChanged = void Function(String);

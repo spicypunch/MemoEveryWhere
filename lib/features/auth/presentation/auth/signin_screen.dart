@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:memo_everywhere/shared/components/default_button.dart';
-import 'package:memo_everywhere/shared/components/default_layout.dart';
-import 'package:memo_everywhere/shared/components/default_text_field.dart';
+
+import '../../../../core/components/default_button.dart';
+import '../../../../core/components/default_layout.dart';
+import '../../../../core/components/default_text_field.dart';
 
 class SignInScreen extends ConsumerWidget {
   const SignInScreen({super.key});

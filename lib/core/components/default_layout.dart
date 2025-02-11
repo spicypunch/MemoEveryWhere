@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../ colors/default_colors.dart';
+import '../colors/default_colors.dart';
 
 class DefaultLayout extends StatelessWidget {
   final Widget child;

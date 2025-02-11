@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../presentation/auth/signin_screen.dart';
-import '../presentation/auth/signup_screen.dart';
-import '../presentation/detail/detail_screen.dart';
-import '../presentation/home/home_screen.dart';
-import '../presentation/settings/settings_screen.dart';
+import '../../features/auth/presentation/auth/signin_screen.dart';
+import '../../features/auth/presentation/auth/signup_screen.dart';
+import '../../features/detail/detail_screen.dart';
+import '../../features/home/home_screen.dart';
+import '../../features/settings/settings_screen.dart';
+
 
 final routerProvider = Provider<GoRouter>(
   (ref) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../ colors/default_colors.dart';
+import '../colors/default_colors.dart';
 
 // GH에서 사용하는 기본버튼
 class DefaultButton extends StatelessWidget {
