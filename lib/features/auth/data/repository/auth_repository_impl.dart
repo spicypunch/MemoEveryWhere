@@ -15,7 +15,7 @@ class AuthRepositoryImpl implements AuthRepository {
       );
     } on FirebaseAuthException catch (e) {
       print(e);
-      throw _handleAuthException(e);
+      rethrow;
     }
   }
 
@@ -28,7 +28,7 @@ class AuthRepositoryImpl implements AuthRepository {
       );
     } on FirebaseAuthException catch (e) {
       print(e);
-      throw _handleAuthException(e);
+      rethrow;
     }
   }
 
@@ -43,18 +43,18 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
-  String _handleAuthException(FirebaseAuthException e) {
-    switch (e.code) {
-      case 'weak-password':
-        return '비밀번호가 너무 약합니다.';
-      case 'email-already-in-use':
-        return '이미 사용 중인 이메일입니다.';
-      case 'user-not-found':
-        return '존재하지 않는 계정입니다.';
-      case 'wrong-password':
-        return '잘못된 비밀번호입니다.';
-      default:
-        return '인증 오류가 발생했습니다.';
-    }
-  }
+  // String _handleAuthException(FirebaseAuthException e) {
+  //   switch (e.code) {
+  //     case 'weak-password':
+  //       return '비밀번호가 너무 약합니다.';
+  //     case 'email-already-in-use':
+  //       return '이미 사용 중인 이메일입니다.';
+  //     case 'user-not-found':
+  //       return '존재하지 않는 계정입니다.';
+  //     case 'wrong-password':
+  //       return '잘못된 비밀번호입니다.';
+  //     default:
+  //       return '인증 오류가 발생했습니다.';
+  //   }
+  // }
 }

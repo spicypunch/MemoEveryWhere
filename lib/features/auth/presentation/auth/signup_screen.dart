@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:memo_everywhere/features/auth/domain/state/auth_state.dart';
 
 import '../../../../core/components/default_button.dart';
 import '../../../../core/components/default_layout.dart';
@@ -13,37 +14,54 @@ class SignUpScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(authProvider).when(
-          data: (state) => state.when(
-            authenticated: () => WidgetsBinding.instance.addPostFrameCallback((_) {
-              context.pop();
-            }),
-            unauthenticated: () {},
-            error: (message) => ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(message),
-              ),
-            ),
-          ),
-          error: (error, stackTrace) => ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(error.toString()),
-            ),
-          ),
-          loading: () => CircularProgressIndicator(),
-        );
-
     final emailController = useTextEditingController();
     final pwController = useTextEditingController();
     final pwConfirmController = useTextEditingController();
 
-    final (isEmailValid, isPwMatched) = useSignUpValidation(
-      emailController: emailController,
-      pwController: pwController,
-      pwConfirmController: pwConfirmController,
-    );
+    final isEmailValid = useState(false);
+    final isPwMatched = useState(false);
 
-    final isFormValid = isEmailValid && isPwMatched;
+    useEffect(() {
+      void validateEmail() {
+        final email = emailController.text;
+        final emailRegex = RegExp(
+          r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+        );
+        isEmailValid.value = emailRegex.hasMatch(email);
+      }
+
+      emailController.addListener(validateEmail);
+      return () => emailController.removeListener(validateEmail);
+    }, [emailController]);
+
+    useEffect(() {
+      void validatePw() {
+        isPwMatched.value = pwController.text == pwConfirmController.text &&
+            pwController.text.isNotEmpty &&
+            pwConfirmController.text.isNotEmpty;
+      }
+
+      pwController.addListener(validatePw);
+      pwConfirmController.addListener(validatePw);
+
+      return () {
+        pwController.removeListener(validatePw);
+        pwConfirmController.removeListener(validatePw);
+      };
+    }, [pwController, pwConfirmController]);
+
+    ref.listen<AsyncValue<AuthState>>(authProvider, (previous, next) {
+      next.whenOrNull(
+        data: (state) => state.whenOrNull(
+          authenticated: () => context.goNamed("signin"),
+        ),
+        error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error.toString())),
+        ),
+      );
+    });
+
+    final isFormValid = isEmailValid.value && isPwMatched.value;
 
     return DefaultLayout(
       child: SafeArea(

@@ -8,7 +8,6 @@ import '../../features/detail/detail_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/settings/settings_screen.dart';
 
-
 final routerProvider = Provider<GoRouter>(
   (ref) {
     return GoRouter(
@@ -21,13 +20,11 @@ final routerProvider = Provider<GoRouter>(
           path: '/signin',
           name: 'signin',
           builder: (context, state) => SignInScreen(),
-          routes: [
-            GoRoute(
-              path: 'signup',
-              name: 'signup',
-              builder: (context, state) => SignUpScreen(),
-            )
-          ],
+        ),
+        GoRoute(
+          path: '/signup',
+          name: 'signup',
+          builder: (context, state) => SignUpScreen(),
         ),
         GoRoute(
           path: '/home',

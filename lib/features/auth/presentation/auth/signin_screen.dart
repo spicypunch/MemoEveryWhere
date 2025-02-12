@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:memo_everywhere/features/auth/presentation/auth/auth_provider.dart';
 
 import '../../../../core/components/default_button.dart';
 import '../../../../core/components/default_layout.dart';
 import '../../../../core/components/default_text_field.dart';
+import '../../domain/state/auth_state.dart';
 
-class SignInScreen extends ConsumerWidget {
+class SignInScreen extends HookConsumerWidget {
   const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen<AsyncValue<AuthState>>(authProvider, (previous, next) {
+      next.whenOrNull(
+        data: (state) => state.whenOrNull(
+          authenticated: () => context.goNamed('home'),
+          error: (message) => ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(message)),
+          ),
+        ),
+        error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error.toString())),
+        ),
+      );
+    });
+
+    final emailController = useTextEditingController();
+    final pwController = useTextEditingController();
+
     return DefaultLayout(
       child: SafeArea(
         child: Padding(
@@ -26,17 +47,35 @@ class SignInScreen extends ConsumerWidget {
                   children: [
                     Text(
                       'Email',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    DefaultTextFormField(label: 'email'),
+                    DefaultTextFormField(
+                      label: 'email',
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
                     SizedBox(height: 20),
                     Text(
                       'PassWord',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    DefaultTextFormField(label: 'password'),
+                    DefaultTextFormField(
+                      label: 'password',
+                      controller: pwController,
+                      obscureText: true,
+                      keyboardType: TextInputType.text,
+                    ),
                     SizedBox(height: 80),
-                    DefaultButton(title: 'Login', onTap: () {}),
+                    DefaultButton(
+                        title: 'Login',
+                        onTap: () {
+                          ref.read(authProvider.notifier).signIn(
+                                emailController.text,
+                                pwController.text,
+                              );
+                        }),
                   ],
                 ),
               ),
@@ -45,14 +84,14 @@ class SignInScreen extends ConsumerWidget {
                 child: Center(
                   child: InkWell(
                     onTap: () {
-                      context.goNamed("signup");
+                      context.pushNamed("signup");
                     },
                     child: Text(
                       'SignUp',
                       style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold
+                        decoration: TextDecoration.underline,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
