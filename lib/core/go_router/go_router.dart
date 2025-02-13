@@ -20,11 +20,13 @@ final routerProvider = Provider<GoRouter>(
           path: '/signin',
           name: 'signin',
           builder: (context, state) => SignInScreen(),
-        ),
-        GoRoute(
-          path: '/signup',
-          name: 'signup',
-          builder: (context, state) => SignUpScreen(),
+          routes: [
+            GoRoute(
+              path: '/signup',
+              name: 'signup',
+              builder: (context, state) => SignUpScreen(),
+            ),
+          ]
         ),
         GoRoute(
           path: '/home',
