@@ -38,7 +38,9 @@ class SignUpScreen extends HookConsumerWidget {
       void validatePw() {
         isPwMatched.value = pwController.text == pwConfirmController.text &&
             pwController.text.isNotEmpty &&
-            pwConfirmController.text.isNotEmpty;
+            pwConfirmController.text.isNotEmpty &&
+            pwController.text.length >= 6 &&
+            pwConfirmController.text.length >= 6;
       }
 
       pwController.addListener(validatePw);
@@ -52,9 +54,16 @@ class SignUpScreen extends HookConsumerWidget {
 
     ref.listen<AsyncValue<AuthState>>(authProvider, (previous, next) {
       next.whenOrNull(
-        data: (state) => state.whenOrNull(
-          authenticated: () => context.goNamed("signin"),
-        ),
+        data: (state) {
+          if (state.isSignedUp) {
+            context.pop();
+          }
+          if (state.error != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error.toString())),
+            );
+          }
+        },
         error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(error.toString())),
         ),
@@ -87,10 +96,20 @@ class SignUpScreen extends HookConsumerWidget {
                       keyboardType: TextInputType.emailAddress,
                     ),
                     SizedBox(height: 20),
-                    Text(
-                      'PassWord',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text(
+                          'PassWord',
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 8),  // 텍스트 사이 간격
+                        Text(
+                          'at least 6 digits',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
                     ),
                     DefaultTextFormField(
                       label: 'password',
@@ -131,7 +150,7 @@ class SignUpScreen extends HookConsumerWidget {
                 child: Center(
                   child: InkWell(
                     onTap: () {
-                      Navigator.pop(context);
+                      context.pop();
                     },
                     child: Text(
                       'Back to Login',
@@ -149,44 +168,4 @@ class SignUpScreen extends HookConsumerWidget {
       ),
     );
   }
-}
-
-(bool, bool) useSignUpValidation({
-  required TextEditingController emailController,
-  required TextEditingController pwController,
-  required TextEditingController pwConfirmController,
-}) {
-  final isEmailValid = useState(false);
-  final isPwMatched = useState(false);
-
-  useEffect(() {
-    void validateEmail() {
-      final email = emailController.text;
-      final emailRegex = RegExp(
-        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-      );
-      isEmailValid.value = emailRegex.hasMatch(email);
-    }
-
-    emailController.addListener(validateEmail);
-    return () => emailController.removeListener(validateEmail);
-  }, [emailController]);
-
-  useEffect(() {
-    void validatePw() {
-      isPwMatched.value = pwController.text == pwConfirmController.text &&
-          pwController.text.isNotEmpty &&
-          pwConfirmController.text.isNotEmpty;
-    }
-
-    pwController.addListener(validatePw);
-    pwConfirmController.addListener(validatePw);
-
-    return () {
-      pwController.removeListener(validatePw);
-      pwConfirmController.removeListener(validatePw);
-    };
-  }, [pwController, pwConfirmController]);
-
-  return (isEmailValid.value, isPwMatched.value);
 }

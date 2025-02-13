@@ -12,7 +12,7 @@ class AuthProvider extends AsyncNotifier<AuthState> {
   @override
   Future<AuthState> build() async {
     _authRepository = ref.watch(repositoryProvider);
-    return const AuthState.unauthenticated();
+    return const AuthState();
   }
 
   Future<void> signIn(String email, String password) async {
@@ -20,9 +20,9 @@ class AuthProvider extends AsyncNotifier<AuthState> {
     state = await AsyncValue.guard(() async {
       try {
         await _authRepository.signIn(email, password);
-        return AuthState.authenticated();
+        return AuthState(isSignedIn: true);
       } catch (e) {
-        return AuthState.error(e.toString());
+        return AuthState(error: e.toString());
       }
     });
   }
@@ -32,9 +32,9 @@ class AuthProvider extends AsyncNotifier<AuthState> {
     state = await AsyncValue.guard(() async {
       try {
         await _authRepository.signup(email, password);
-        return AuthState.authenticated();
+        return AuthState(isSignedUp: true);
       } catch (e) {
-        return AuthState.error(e.toString());
+        return AuthState(error: e.toString());
       }
     });
   }
@@ -44,9 +44,9 @@ class AuthProvider extends AsyncNotifier<AuthState> {
     state = await AsyncValue.guard(() async {
       try {
         await _authRepository.signOut();
-        return const AuthState.unauthenticated();
+        return AuthState(isSignedOut: true);
       } catch (e) {
-        return AuthState.error(e.toString());
+        return AuthState(error: e.toString());
       }
     });
   }

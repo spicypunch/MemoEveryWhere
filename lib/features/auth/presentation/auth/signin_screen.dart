@@ -17,12 +17,16 @@ class SignInScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<AsyncValue<AuthState>>(authProvider, (previous, next) {
       next.whenOrNull(
-        data: (state) => state.whenOrNull(
-          authenticated: () => context.goNamed('home'),
-          error: (message) => ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(message)),
-          ),
-        ),
+        data: (state) {
+          if (state.isSignedIn) {
+            context.goNamed("home");
+          }
+          if (state.error != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error.toString())),
+            );
+          }
+        },
         error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(error.toString())),
         ),

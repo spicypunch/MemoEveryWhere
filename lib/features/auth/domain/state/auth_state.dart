@@ -5,9 +5,12 @@ part 'auth_state.g.dart';
 
 @freezed
 class AuthState with _$AuthState {
-  const factory AuthState.authenticated() = _Authenticated;
-  const factory AuthState.unauthenticated() = _Unauthenticated;
-  const factory AuthState.error(String message) = _Error;
+  const factory AuthState({
+    @Default(false) bool isSignedUp,
+    @Default(false) bool isSignedIn,
+    @Default(false) bool isSignedOut,
+    String? error,
+  }) = _AuthState;
 
   factory AuthState.fromJson(Map<String, dynamic> json) =>
       _$AuthStateFromJson(json);
