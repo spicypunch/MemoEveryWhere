@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memo_everywhere/features/auth/domain/state/auth_state.dart';
 
-import '../../../../core/components/default_button.dart';
-import '../../../../core/components/default_layout.dart';
-import '../../../../core/components/default_text_field.dart';
+import '../../../core/components/default_button.dart';
+import '../../../core/components/default_layout.dart';
+import '../../../core/components/default_text_field.dart';
 import 'auth_provider.dart';
 
 class SignUpScreen extends HookConsumerWidget {
@@ -64,9 +64,6 @@ class SignUpScreen extends HookConsumerWidget {
             );
           }
         },
-        error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.toString())),
-        ),
       );
     });
 
@@ -102,9 +99,10 @@ class SignUpScreen extends HookConsumerWidget {
                       children: [
                         Text(
                           'PassWord',
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: 8),  // 텍스트 사이 간격
+                        SizedBox(width: 8),
                         Text(
                           'at least 6 digits',
                           style: TextStyle(fontSize: 14),
@@ -155,9 +153,10 @@ class SignUpScreen extends HookConsumerWidget {
                     child: Text(
                       'Back to Login',
                       style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                        decoration: TextDecoration.underline,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
