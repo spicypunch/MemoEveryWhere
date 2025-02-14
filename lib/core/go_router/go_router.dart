@@ -1,32 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:memo_everywhere/features/add/presentation/add_screen.dart';
 
-import '../../features/auth/presentation/auth/signin_screen.dart';
-import '../../features/auth/presentation/auth/signup_screen.dart';
-import '../../features/detail/detail_screen.dart';
-import '../../features/home/home_screen.dart';
-import '../../features/settings/settings_screen.dart';
+import '../../features/auth/presentation/signin_screen.dart';
+import '../../features/auth/presentation/signup_screen.dart';
+import '../../features/detail/presentation/detail_screen.dart';
+import '../../features/home/presentaion/home_screen.dart';
+import '../../features/settings/presentation/settings_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
     return GoRouter(
-      initialLocation: '/signin',
+      initialLocation: '/home',
       redirect: (BuildContext context, GoRouterState state) {
         return null;
       },
       routes: [
         GoRoute(
-          path: '/signin',
-          name: 'signin',
-          builder: (context, state) => SignInScreen(),
-          routes: [
-            GoRoute(
-              path: '/signup',
-              name: 'signup',
-              builder: (context, state) => SignUpScreen(),
-            ),
-          ]
+            path: '/signin',
+            name: 'signin',
+            builder: (context, state) => SignInScreen(),
+            routes: [
+              GoRoute(
+                path: '/signup',
+                name: 'signup',
+                builder: (context, state) => SignUpScreen(),
+              ),
+            ]),
+        GoRoute(
+          path: '/add',
+          name: 'add',
+          builder: (context, state) => AddScreen(),
         ),
         GoRoute(
           path: '/home',

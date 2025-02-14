@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:memo_everywhere/features/auth/domain/repository/auth_repository.dart';
 
-import '../../domain/state/auth_state.dart';
+import '../domain/state/auth_state.dart';
 
 final authProvider =
 AsyncNotifierProvider<AuthProvider, AuthState>(() => AuthProvider());
