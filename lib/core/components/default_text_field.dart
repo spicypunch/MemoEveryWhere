@@ -19,6 +19,7 @@ class DefaultTextFormField extends StatefulWidget {
   final TextInputType keyboardType; // 키보드 입력 타입
   final bool obscureText; // 입력된 텍스트 가리기, 비밀번호 입력 시 true
   final OnChanged? onChanged; // 입력된 텍스트가 수정될  호출되는 콜백
+  final bool expands;
 
   const DefaultTextFormField({
     required this.label,
@@ -33,6 +34,7 @@ class DefaultTextFormField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.onChanged,
+    this.expands = false,
     super.key,
   });
 
@@ -44,6 +46,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
 
   @override
   Widget build(BuildContext context) {
+
     double calculatedHeight = widget.height;
     if (widget.title.isNotEmpty) {
       calculatedHeight = 100;
@@ -55,7 +58,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
       ),
       child: SizedBox(
         width: widget.width,
-        height: calculatedHeight,
+        height: widget.expands ? null : widget.height,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -72,34 +75,38 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
               const SizedBox(
                 height: 14.0,
               ),
-            TextFormField(
-              controller: widget.controller,
-              validator: widget.formFieldValidator,
-              keyboardType: widget.keyboardType,
-              obscureText: widget.obscureText,
-              onChanged: widget.onChanged,
-              style: const TextStyle(fontSize: 16, color: DefaultColors.black),
-              decoration: InputDecoration(
-                errorText: widget.errorText,
-                labelText: widget.label,
-                labelStyle: const TextStyle(fontSize: 16, color: Colors.black),
-                filled: true,
-                fillColor: widget.filledColor,
-                border: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: DefaultColors.grey400,
-                    ),
-                    borderRadius: BorderRadius.circular(widget.radius)),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: DefaultColors.grey400,
-                    ),
-                    borderRadius: BorderRadius.circular(widget.radius)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: DefaultColors.grey400,
-                    ),
-                    borderRadius: BorderRadius.circular(widget.radius)),
+            Expanded(
+              child: TextFormField(
+                controller: widget.controller,
+                validator: widget.formFieldValidator,
+                keyboardType: widget.keyboardType,
+                obscureText: widget.obscureText,
+                onChanged: widget.onChanged,
+                maxLines: widget.obscureText ? 1 : (widget.expands ? null : 1),
+                expands: widget.obscureText ? false : widget.expands,
+                style: const TextStyle(fontSize: 16, color: DefaultColors.black),
+                decoration: InputDecoration(
+                  errorText: widget.errorText,
+                  labelText: widget.label,
+                  labelStyle: const TextStyle(fontSize: 16, color: Colors.black),
+                  filled: true,
+                  fillColor: widget.filledColor,
+                  border: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: DefaultColors.grey400,
+                      ),
+                      borderRadius: BorderRadius.circular(widget.radius)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: DefaultColors.grey400,
+                      ),
+                      borderRadius: BorderRadius.circular(widget.radius)),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: DefaultColors.grey400,
+                      ),
+                      borderRadius: BorderRadius.circular(widget.radius)),
+                ),
               ),
             ),
           ],

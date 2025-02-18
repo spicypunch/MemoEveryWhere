@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../core/provider/firebase_provider.dart';
 import '../../data/repository/auth_repository_impl.dart';
 
-final repositoryProvider = Provider<AuthRepository>((ref) {
+final authRepositoryProvider = Provider<AuthRepository>((ref) {
   final firebaseAuth = ref.watch(firebaseAuthProvider);
   return AuthRepositoryImpl(firebaseAuth: firebaseAuth);
 });

@@ -12,7 +12,7 @@ import '../../features/settings/presentation/settings_screen.dart';
 final routerProvider = Provider<GoRouter>(
   (ref) {
     return GoRouter(
-      initialLocation: '/home',
+      initialLocation: '/signin',
       redirect: (BuildContext context, GoRouterState state) {
         return null;
       },
