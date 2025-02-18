@@ -15,23 +15,26 @@ class SignInScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<AsyncValue<AuthState>>(authProvider, (previous, next) {
-      next.whenOrNull(
-        data: (state) {
-          if (state.isSignedIn) {
-            context.goNamed("home");
-          }
-          if (state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error.toString())),
-            );
-          }
-        },
-        error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.toString())),
-        ),
-      );
-    });
+    ref.listen<AsyncValue<AuthState>>(
+      authProvider,
+      (previous, next) {
+        next.whenOrNull(
+          data: (state) {
+            if (state.isSignedIn) {
+              context.goNamed("home");
+            }
+            if (state.error != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.error.toString())),
+              );
+            }
+          },
+          error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error.toString())),
+          ),
+        );
+      },
+    );
 
     final emailController = useTextEditingController();
     final pwController = useTextEditingController();

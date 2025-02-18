@@ -11,7 +11,7 @@ class AuthProvider extends AsyncNotifier<AuthState> {
 
   @override
   Future<AuthState> build() async {
-    _authRepository = ref.watch(repositoryProvider);
+    _authRepository = ref.watch(authRepositoryProvider);
     return const AuthState();
   }
 
