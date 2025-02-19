@@ -26,5 +26,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:733929455796:ios:86881970a7b30bd4db17e1</string>
+	<key>DATABASE_URL</key>
+	<string>https://memoeverywhere-b3cfb-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>

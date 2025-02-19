@@ -19,8 +19,8 @@ class AddProvider extends AsyncNotifier<AddState> {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       try {
-        await _addRepository.addItem(title, content);
-        return AddState(isAdded: true);
+        final result = await _addRepository.addItem(title, content);
+        return AddState(isAdded: result);
       } catch (e) {
         return AddState(error: e.toString());
       }

@@ -41,6 +41,7 @@ class AddScreen extends HookConsumerWidget {
     final contentController = useTextEditingController();
 
     return DefaultLayout(
+      showBackButton: true,
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -73,9 +74,15 @@ class AddScreen extends HookConsumerWidget {
               DefaultButton(
                 title: 'Submit',
                 onTap: () {
-                  ref
-                      .read(addProvider.notifier)
-                      .addItem(titleController.text, contentController.text);
+                  if (titleController.text.isNotEmpty && contentController.text.isNotEmpty) {
+                    ref
+                        .read(addProvider.notifier)
+                        .addItem(titleController.text, contentController.text);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Please fill in all fields')),
+                    );
+                  }
                 },
               ),
               SizedBox(height: 20),
