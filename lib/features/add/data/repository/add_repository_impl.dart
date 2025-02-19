@@ -1,28 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:memo_everywhere/features/add/domain/repository/add_repository.dart';
 
 class AddRepositoryImpl implements AddRepository {
-  final FirebaseDatabase firebaseDatabase;
+  final FirebaseAuth auth;
+  final FirebaseFirestore firestore;
 
-  AddRepositoryImpl({required this.firebaseDatabase});
+  AddRepositoryImpl(
+      {required this.auth, required this.firestore});
 
   @override
   Future<bool> addItem(String title, String content) async {
     try {
-      final newMemoRef = firebaseDatabase.ref().child('memos').push();
-      print("URL: ${firebaseDatabase.ref()}");
-      print("메모 참조 확인${newMemoRef.key}");
-      await newMemoRef.set({
+      final user = auth.currentUser;
+      if (user == null) return false;
+
+      await firestore.collection('memos').add({
+        'userId': user.uid,
         'title': title,
         'content': content,
+        'createdAt': FieldValue.serverTimestamp(),
       });
+
       return true;
-    } on FirebaseException catch (e) {
-      print("Firebase Error: ${e.toString()}");
-      return false;
     } catch (e) {
-      print("Other Error: ${e.toString()}");
+      print("Firestore Error: $e");
       return false;
     }
   }
