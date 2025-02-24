@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:memo_everywhere/features/home/presentaion/home_provider.dart';
 
 import '../../../core/components/default_layout.dart';
 
@@ -33,12 +34,13 @@ class HomeScreen extends HookConsumerWidget {
       onFloatingActionButtonPressed: () {
         context.pushNamed('add');
       },
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20.0,
-        ),
-        child: isMobile ? _buildMobileLayout() : _buildDesktopLayout(),
-      ),
+      child: ElevatedButton(onPressed: ref.read(homeProvider.notifier).getMemos, child: Text('123'))
+      // Padding(
+      //   padding: EdgeInsets.symmetric(
+      //     horizontal: 20.0,
+      //   ),
+      //   child: isMobile ? _buildMobileLayout() : _buildDesktopLayout(),
+      // ),
 
     );
   }

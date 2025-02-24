@@ -10,10 +10,21 @@ class HomeRepositoryImpl implements HomeRepository {
   HomeRepositoryImpl({required this.auth, required this.firestore});
 
   @override
-  Future<List<Memo>> getMemos() {
+  Future<List<Memo>> getMemos() async {
     try {
+      final user = auth.currentUser;
+      if (user == null) return Future.value([]);
 
+      final snapshot = await firestore
+      .collection('memos')
+      .where('userid', isEqualTo: user.uid)
+      .orderBy('createAt', descending: true)
+      .get();
+      
+      return snapshot.docs.map((doc) => Memo.fromFirestore(doc)).toList();
+    } catch (e) {
+      print("Firestore Error: $e");
+      return Future.value([]);
     }
   }
-
 }
