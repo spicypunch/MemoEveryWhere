@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memo_everywhere/features/home/domain/repository/home_repository.dart';
-import 'package:memo_everywhere/features/home/domain/state/HomeState.dart';
+import 'package:memo_everywhere/features/home/domain/state/home_state.dart';
 
 final homeProvider =
     AsyncNotifierProvider<HomeProvider, HomeState>(() => HomeProvider());
@@ -21,6 +21,7 @@ class HomeProvider extends AsyncNotifier<HomeState> {
         state = await AsyncValue.guard(() async {
             try {
                 final result = await _homeRepository.getMemos();
+                print('2@@@@@@@@@@@@@@@@@@@@@$result');
                 return HomeState(memos: result);
             } catch (e) {
                 return HomeState(error: e.toString());
