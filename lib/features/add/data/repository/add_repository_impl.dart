@@ -6,8 +6,7 @@ class AddRepositoryImpl implements AddRepository {
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
 
-  AddRepositoryImpl(
-      {required this.auth, required this.firestore});
+  AddRepositoryImpl({required this.auth, required this.firestore});
 
   @override
   Future<bool> addItem(String title, String content) async {
@@ -21,7 +20,6 @@ class AddRepositoryImpl implements AddRepository {
         'content': content,
         'createdAt': FieldValue.serverTimestamp(),
       });
-
       return true;
     } catch (e) {
       print("Firestore Error: $e");

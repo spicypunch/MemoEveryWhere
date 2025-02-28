@@ -8,24 +8,24 @@ final homeProvider =
     AsyncNotifierProvider<HomeProvider, HomeState>(() => HomeProvider());
 
 class HomeProvider extends AsyncNotifier<HomeState> {
-    late final HomeRepository _homeRepository;
+  late final HomeRepository _homeRepository;
 
-    @override
-    FutureOr<HomeState> build() {
-        _homeRepository = ref.watch(homeRepositoryProvider);
-        throw HomeState();
-    }
+  @override
+  Future<HomeState> build() async {
+    _homeRepository = ref.watch(homeRepositoryProvider);
+    return const HomeState();
+  }
 
-    Future<void> getMemos() async {
-        state = const AsyncValue.loading();
-        state = await AsyncValue.guard(() async {
-            try {
-                final result = await _homeRepository.getMemos();
-                print('2@@@@@@@@@@@@@@@@@@@@@$result');
-                return HomeState(memos: result);
-            } catch (e) {
-                return HomeState(error: e.toString());
-            }
-        });
-    }
+  Future<void> getMemos() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      try {
+        final result = await _homeRepository.getMemos();
+        print('@@@@@@@@@@@@@@@@@@@@@$result');
+        return HomeState(memos: result);
+      } catch (e) {
+        return HomeState(error: e.toString());
+      }
+    });
+  }
 }

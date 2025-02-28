@@ -17,10 +17,9 @@ class HomeRepositoryImpl implements HomeRepository {
 
       final snapshot = await firestore
       .collection('memos')
-      .where('userid', isEqualTo: user.uid)
-      .orderBy('createAt', descending: true)
+      .where('userId', isEqualTo: user.uid)
+      .orderBy('createdAt', descending: true)
       .get();
-      
       return snapshot.docs.map((doc) => Memo.fromFirestore(doc)).toList();
     } catch (e) {
       print("Firestore Error: $e");
