@@ -21,7 +21,6 @@ class HomeProvider extends AsyncNotifier<HomeState> {
     state = await AsyncValue.guard(() async {
       try {
         final result = await _homeRepository.getMemos();
-        print('@@@@@@@@@@@@@@@@@@@@@$result');
         return HomeState(memos: result);
       } catch (e) {
         return HomeState(error: e.toString());
