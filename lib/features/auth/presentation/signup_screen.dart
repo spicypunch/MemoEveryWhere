@@ -6,7 +6,7 @@ import 'package:memo_everywhere/features/auth/domain/state/auth_state.dart';
 
 import '../../../core/components/default_button.dart';
 import '../../../core/components/default_layout.dart';
-import '../../../core/components/default_text_field.dart';
+import '../../../core/components/default_text_form_field.dart';
 import 'auth_provider.dart';
 
 class SignUpScreen extends HookConsumerWidget {

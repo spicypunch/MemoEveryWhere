@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:memo_everywhere/features/add/presentation/add_screen.dart';
+import 'package:memo_everywhere/features/home/domain/entity/memo.dart';
 
 import '../../features/auth/presentation/signin_screen.dart';
 import '../../features/auth/presentation/signup_screen.dart';
@@ -39,11 +40,11 @@ final routerProvider = Provider<GoRouter>(
           builder: (context, state) => HomeScreen(),
           routes: [
             GoRoute(
-              path: 'detail/:id',
+              path: 'detail',
               name: 'detail',
               builder: (context, state) {
-                final id = state.pathParameters['id']!;
-                return DetailScreen();
+                final memo = state.extra as Memo;
+                return DetailScreen(memo: memo,);
               },
             ),
             GoRoute(

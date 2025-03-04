@@ -11,5 +11,5 @@ final homeRepositoryProvider = Provider<HomeRepository>((ref) {
 });
 
 abstract class HomeRepository {
-  Future<List<Memo>> getMemos();
+  Stream<List<Memo>> getMemos();
 }

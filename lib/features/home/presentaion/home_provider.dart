@@ -1,30 +1,34 @@
 import 'dart:async';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memo_everywhere/features/home/domain/repository/home_repository.dart';
 import 'package:memo_everywhere/features/home/domain/state/home_state.dart';
+import 'package:memo_everywhere/features/home/domain/entity/memo.dart';
 
 final homeProvider =
-    AsyncNotifierProvider<HomeProvider, HomeState>(() => HomeProvider());
+AsyncNotifierProvider<HomeProvider, HomeState>(() => HomeProvider());
 
 class HomeProvider extends AsyncNotifier<HomeState> {
   late final HomeRepository _homeRepository;
+  StreamSubscription<List<Memo>>? _subscription;
 
   @override
   Future<HomeState> build() async {
     _homeRepository = ref.watch(homeRepositoryProvider);
-    return const HomeState();
-  }
 
-  Future<void> getMemos() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      try {
-        final result = await _homeRepository.getMemos();
-        return HomeState(memos: result);
-      } catch (e) {
-        return HomeState(error: e.toString());
-      }
+    ref.onDispose(() {
+      _subscription?.cancel();
     });
+
+    _subscription = _homeRepository.getMemos().listen(
+          (memos) {
+        state = AsyncValue.data(HomeState(memos: memos));
+      },
+      onError: (error, stackTrace) {
+        state = AsyncValue.error(error, stackTrace);
+      },
+    );
+
+    // 초기 상태 반환
+    return const HomeState();
   }
 }

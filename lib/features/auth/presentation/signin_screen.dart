@@ -7,7 +7,7 @@ import 'package:memo_everywhere/features/auth/presentation/auth_provider.dart';
 
 import '../../../core/components/default_button.dart';
 import '../../../core/components/default_layout.dart';
-import '../../../core/components/default_text_field.dart';
+import '../../../core/components/default_text_form_field.dart';
 import '../domain/state/auth_state.dart';
 
 class SignInScreen extends HookConsumerWidget {

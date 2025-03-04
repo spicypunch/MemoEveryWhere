@@ -7,7 +7,7 @@ import 'package:memo_everywhere/features/add/presentation/add_provider.dart';
 
 import '../../../core/components/default_button.dart';
 import '../../../core/components/default_layout.dart';
-import '../../../core/components/default_text_field.dart';
+import '../../../core/components/default_text_form_field.dart';
 
 class AddScreen extends HookConsumerWidget {
   const AddScreen({super.key});
