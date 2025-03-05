@@ -15,7 +15,7 @@ class UpdateRepositoryImpl implements UpdateRepository {
       final Map<String, dynamic> updateData = {};
       updateData['title'] = newTitle;
       updateData['content'] = newContent;
-      updateData['createAt'] = FieldValue.serverTimestamp();
+      updateData['createdAt'] = FieldValue.serverTimestamp();
       await firestore.collection('memos').doc(memoId).update(updateData);
       return true;
     } catch (e) {
