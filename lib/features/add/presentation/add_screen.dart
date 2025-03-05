@@ -21,9 +21,9 @@ class AddScreen extends HookConsumerWidget {
           if (state.isAdded) {
             context.pop();
           } else {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   const SnackBar(content: Text('Add Failed')),
-            // );
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Add Failed')),
+            );
           }
           if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(

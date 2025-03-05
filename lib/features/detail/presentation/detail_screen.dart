@@ -8,6 +8,7 @@ import 'package:memo_everywhere/core/components/default_layout.dart';
 import 'package:memo_everywhere/core/components/default_text_field.dart';
 
 import '../../home/domain/entity/memo.dart';
+import 'detail_provider.dart';
 
 class DetailScreen extends HookConsumerWidget {
   final Memo memo;
@@ -42,11 +43,9 @@ class DetailScreen extends HookConsumerWidget {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              // 편집 모드에서는 DefaultTextField를 사용, 아니면 기존 스타일의 텍스트로 표시
               isEditing.value
                   ? DefaultTextField(
                       label: '',
-                      // label은 필요에 따라 조정
                       controller: titleController,
                       height: 50,
                       fontSize: 18,
@@ -135,7 +134,11 @@ class DetailScreen extends HookConsumerWidget {
                 title: isEditing.value ? 'Save' : 'Update',
                 onTap: () {
                   if (isEditing.value) {
-                    
+                    ref.read(detailProvider.notifier).updateItem(
+                          memo.id,
+                          titleController.text,
+                          contentController.text,
+                        );
                     isEditing.value = false;
                   } else {
                     isEditing.value = true;

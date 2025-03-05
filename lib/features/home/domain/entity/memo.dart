@@ -1,4 +1,3 @@
-// memo.dart
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -16,7 +15,6 @@ class Memo with _$Memo {
 
   factory Memo.fromJson(Map<String, dynamic> json) => _$MemoFromJson(json);
 
-  // Firestore Timestamp 변환을 위한 팩토리 메서드
   factory Memo.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return Memo(
