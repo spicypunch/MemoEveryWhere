@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../core/models/memo.dart';
 import '../../../../core/provider/firebase_provider.dart';
 import '../../data/repository/update_repositoryimpl.dart';
 
@@ -11,4 +12,5 @@ final updateRepositoryProvider = Provider<UpdateRepository>((ref) {
 
 abstract class UpdateRepository {
   Future<bool> updateItem(String memoId, String newTitle, String newContent);
+  // Future<Memo?> getUpdatedItem(String memoId);
 }

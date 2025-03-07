@@ -7,7 +7,7 @@ import 'package:memo_everywhere/core/components/default_button.dart';
 import 'package:memo_everywhere/core/components/default_layout.dart';
 import 'package:memo_everywhere/core/components/default_text_field.dart';
 
-import '../../home/domain/entity/memo.dart';
+import '../../../core/models/memo.dart';
 import 'detail_provider.dart';
 
 class DetailScreen extends HookConsumerWidget {
@@ -20,14 +20,56 @@ class DetailScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 편집 모드를 관리하는 상태 변수
+    final memoState = useState(memo);
     final isEditing = useState(false);
-    // 텍스트 편집 컨트롤러 (초기값은 memo의 기존 값)
-    final titleController = useTextEditingController(text: memo.title);
-    final contentController = useTextEditingController(text: memo.content);
+    final isFirstRender = useState(true);
+    final titleController = useTextEditingController(text: memoState.value.title);
+    final contentController = useTextEditingController(text: memoState.value.content);
 
     final dateFormat = DateFormat('yyyy-MM-dd HH:mm');
-    final formattedDate = dateFormat.format(memo.createdAt);
+    final formattedDate = dateFormat.format(memoState.value.createdAt);
+
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(detailProvider.notifier).resetState();
+      });
+      return null;
+    }, []);
+
+    final state = ref.watch(detailProvider);
+
+    useEffect(() {
+      if (!isFirstRender.value) {
+        state.whenData((data) {
+          if (data.updateSuccess == true) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Update successful'),
+                ),
+              );
+
+              memoState.value = memoState.value.copyWith(
+                title: titleController.text,
+                content: contentController.text,
+              );
+            });
+            isEditing.value = false;
+          } else if (data.updateSuccess == false && data.error != null) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Update failed: ${data.error}'),
+                ),
+              );
+            });
+          }
+        });
+      } else {
+        isFirstRender.value = false;
+      }
+      return null;
+    }, [state]);
 
     return DefaultLayout(
       showBackButton: true,
@@ -45,36 +87,36 @@ class DetailScreen extends HookConsumerWidget {
               const SizedBox(height: 8),
               isEditing.value
                   ? DefaultTextField(
-                      label: '',
-                      controller: titleController,
-                      height: 50,
-                      fontSize: 18,
-                      filledColor: DefaultColors.white,
-                      radius: 12,
-                    )
+                label: '',
+                controller: titleController,
+                height: 50,
+                fontSize: 18,
+                filledColor: DefaultColors.white,
+                radius: 12,
+              )
                   : Container(
-                      width: double.infinity,
-                      height: 50,
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: DefaultColors.grey400,
-                        border: Border.all(color: DefaultColors.grey500),
-                        borderRadius: BorderRadius.circular(12.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: DefaultColors.grey700.withOpacity(0.1),
-                            spreadRadius: 1,
-                            blurRadius: 3,
-                            offset: const Offset(0, 1),
-                          ),
-                        ],
-                      ),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        memo.title,
-                        style: const TextStyle(fontSize: 18),
-                      ),
+                width: double.infinity,
+                height: 50,
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: DefaultColors.grey400,
+                  border: Border.all(color: DefaultColors.grey500),
+                  borderRadius: BorderRadius.circular(12.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: DefaultColors.grey700.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 3,
+                      offset: const Offset(0, 1),
                     ),
+                  ],
+                ),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  memoState.value.title,
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ),
               const SizedBox(height: 20),
               const Text(
                 'Content',
@@ -84,37 +126,37 @@ class DetailScreen extends HookConsumerWidget {
               Expanded(
                 child: isEditing.value
                     ? DefaultTextField(
-                        label: '',
-                        controller: contentController,
-                        expands: true,
-                        fontSize: 16,
-                        filledColor: DefaultColors.white,
-                        radius: 12,
-                      )
+                  label: '',
+                  controller: contentController,
+                  expands: true,
+                  fontSize: 16,
+                  filledColor: DefaultColors.white,
+                  radius: 12,
+                )
                     : Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16.0),
-                        margin: const EdgeInsets.only(bottom: 16.0),
-                        decoration: BoxDecoration(
-                          color: DefaultColors.grey400,
-                          border: Border.all(color: DefaultColors.grey500),
-                          borderRadius: BorderRadius.circular(12.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: DefaultColors.grey700.withOpacity(0.1),
-                              spreadRadius: 1,
-                              blurRadius: 3,
-                              offset: const Offset(0, 1),
-                            ),
-                          ],
-                        ),
-                        child: SingleChildScrollView(
-                          child: Text(
-                            memo.content,
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        ),
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16.0),
+                  margin: const EdgeInsets.only(bottom: 16.0),
+                  decoration: BoxDecoration(
+                    color: DefaultColors.grey400,
+                    border: Border.all(color: DefaultColors.grey500),
+                    borderRadius: BorderRadius.circular(12.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: DefaultColors.grey700.withOpacity(0.1),
+                        spreadRadius: 1,
+                        blurRadius: 3,
+                        offset: const Offset(0, 1),
                       ),
+                    ],
+                  ),
+                  child: SingleChildScrollView(
+                    child: Text(
+                      memoState.value.content,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,12 +177,13 @@ class DetailScreen extends HookConsumerWidget {
                 onTap: () {
                   if (isEditing.value) {
                     ref.read(detailProvider.notifier).updateItem(
-                          memo.id,
-                          titleController.text,
-                          contentController.text,
-                        );
-                    isEditing.value = false;
+                      memoState.value.id,
+                      titleController.text,
+                      contentController.text,
+                    );
                   } else {
+                    titleController.text = memoState.value.title;
+                    contentController.text = memoState.value.content;
                     isEditing.value = true;
                   }
                 },

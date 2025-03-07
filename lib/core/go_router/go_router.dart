@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:memo_everywhere/features/add/presentation/add_screen.dart';
-import 'package:memo_everywhere/features/home/domain/entity/memo.dart';
+import 'package:memo_everywhere/core/models/memo.dart';
 
 import '../../features/auth/presentation/signin_screen.dart';
 import '../../features/auth/presentation/signup_screen.dart';

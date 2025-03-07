@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../entity/memo.dart';
+import '../../../../core/models/memo.dart';
 
 part 'home_state.freezed.dart';
 part 'home_state.g.dart';
