@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:memo_everywhere/features/home/domain/entity/memo.dart';
+import 'package:memo_everywhere/core/models/memo.dart';
 
 import '../../../../core/provider/firebase_provider.dart';
 import '../../data/repository/home_repository_impl.dart';

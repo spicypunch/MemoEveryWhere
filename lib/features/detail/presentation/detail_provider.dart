@@ -15,16 +15,26 @@ class DetailProvider extends AsyncNotifier<DetailState> {
   }
 
   Future<void> updateItem(
-      String memoId, String newTitle, String newContent) async {
+    String memoId,
+    String newTitle,
+    String newContent,
+  ) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      try {
-        final result =
-            await _updateRepository.updateItem(memoId, newTitle, newContent);
-        return DetailState(updateSuccess: result);
-      } catch (e) {
-        return DetailState(error: e.toString());
-      }
+      final result =
+          await _updateRepository.updateItem(memoId, newTitle, newContent);
+      return DetailState(updateSuccess: result);
     });
   }
+
+  void resetState() {
+    state = const AsyncValue.data(DetailState());
+  }
+
+  // Future<void> getUpdatedItem(String memoId) async {
+  //   state = const AsyncValue.loading();
+  //   state = await AsyncValue.guard(() async {
+  //     final result = await _updateRepository.getUpdatedItem(memoId);
+  //   });
+  // }
 }

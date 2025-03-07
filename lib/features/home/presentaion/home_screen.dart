@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memo_everywhere/features/home/presentaion/home_provider.dart';
 
 import '../../../core/components/default_layout.dart';
-import '../domain/entity/memo.dart';
+import '../../../core/models/memo.dart';
 
 class HomeScreen extends HookConsumerWidget {
   HomeScreen({super.key});

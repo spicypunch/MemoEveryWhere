@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:memo_everywhere/core/models/memo.dart';
 import 'package:memo_everywhere/features/detail/domain/repository/update_repository.dart';
 
 class UpdateRepositoryImpl implements UpdateRepository {
@@ -23,4 +24,23 @@ class UpdateRepositoryImpl implements UpdateRepository {
       return false;
     }
   }
+
+  // @override
+  // Future<Memo?> getUpdatedItem(String memoId) async {
+  //   try {
+  //     if (auth.currentUser == null) return null;
+  //
+  //     final memoRef = await firestore.collection('memos').doc(memoId).get();
+  //
+  //     if (memoRef.exists) {
+  //       return Memo.fromFirestore(memoRef);
+  //     } else {
+  //       print("Document with ID $memoId does not exist");
+  //       return null;
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     return null;
+  //   }
+  // }
 }

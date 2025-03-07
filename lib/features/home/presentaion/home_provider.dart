@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memo_everywhere/features/home/domain/repository/home_repository.dart';
 import 'package:memo_everywhere/features/home/domain/state/home_state.dart';
-import 'package:memo_everywhere/features/home/domain/entity/memo.dart';
+import 'package:memo_everywhere/core/models/memo.dart';
 
 final homeProvider =
 AsyncNotifierProvider<HomeProvider, HomeState>(() => HomeProvider());
