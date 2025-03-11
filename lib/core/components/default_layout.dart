@@ -15,6 +15,7 @@ class DefaultLayout extends StatelessWidget {
   final bool showFloatingActionButton; // 플로팅 버튼 표시 여부
   final VoidCallback? onFloatingActionButtonPressed; // 플로팅 버튼 콜백
   final Widget? floatingActionButtonChild; // 플로팅 버튼 커스텀 위젯
+  final List<Widget>? actions;
 
   const DefaultLayout({
     required this.child,
@@ -28,6 +29,7 @@ class DefaultLayout extends StatelessWidget {
     this.showFloatingActionButton = false,
     this.onFloatingActionButtonPressed,
     this.floatingActionButtonChild,
+    this.actions,
     super.key,
   });
 
@@ -65,6 +67,7 @@ class DefaultLayout extends StatelessWidget {
               icon: Icon(Icons.arrow_back_rounded, size: 24),
             )
           : null,
+      actions: actions,
     );
   }
 
