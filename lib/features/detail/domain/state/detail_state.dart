@@ -7,6 +7,7 @@ part 'detail_state.g.dart';
 class DetailState with _$DetailState {
   const factory DetailState({
     bool? updateSuccess,
+    bool? deleteSuccess,
     String? error,
   }) = _DetailState;
 
