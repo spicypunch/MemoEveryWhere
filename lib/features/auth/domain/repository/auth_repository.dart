@@ -6,7 +6,7 @@ import '../../data/repository/auth_repository_impl.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   final firebaseAuth = ref.watch(firebaseAuthProvider);
-  return AuthRepositoryImpl(firebaseAuth: firebaseAuth);
+  return AuthRepositoryImpl(auth: firebaseAuth);
 });
 
 abstract class AuthRepository {

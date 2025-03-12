@@ -54,4 +54,9 @@ class AuthProvider extends AsyncNotifier<AuthState> {
       }
     });
   }
+
+  void resetState() {
+    state = const AsyncValue.data(AuthState());
+
+  }
 }

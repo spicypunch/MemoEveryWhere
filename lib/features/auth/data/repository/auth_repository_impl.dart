@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:memo_everywhere/features/auth/domain/repository/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final FirebaseAuth firebaseAuth;
+  final FirebaseAuth auth;
 
-  AuthRepositoryImpl({required this.firebaseAuth});
+  AuthRepositoryImpl({required this.auth});
 
   @override
   Future<UserCredential> signIn(String email, String passWord) async {
     try {
-      return await firebaseAuth.signInWithEmailAndPassword(
+      return await auth.signInWithEmailAndPassword(
         email: email,
         password: passWord,
       );
@@ -22,7 +22,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserCredential> signup(String email, String passWord) async {
     try {
-      return await firebaseAuth.createUserWithEmailAndPassword(
+      return await auth.createUserWithEmailAndPassword(
         email: email,
         password: passWord,
       );
@@ -35,7 +35,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<bool> signOut() async {
     try {
-      await firebaseAuth.signOut();
+      await auth.signOut();
       return true;
     } on FirebaseAuthException catch (e) {
       print(e);
@@ -45,7 +45,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   User? getCurrentUser() {
-    return firebaseAuth.currentUser;
+    return auth.currentUser;
   }
 
   // String _handleAuthException(FirebaseAuthException e) {

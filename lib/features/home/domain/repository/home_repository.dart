@@ -12,5 +12,4 @@ final homeRepositoryProvider = Provider<HomeRepository>((ref) {
 
 abstract class HomeRepository {
   Stream<List<Memo>> getMemos();
-  Future<bool> signOut();
 }

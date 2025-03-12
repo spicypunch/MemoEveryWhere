@@ -10,6 +10,7 @@ import 'package:memo_everywhere/features/home/presentaion/home_provider.dart';
 import '../../../core/colors/default_colors.dart';
 import '../../../core/components/default_layout.dart';
 import '../../../core/models/memo.dart';
+import '../../auth/presentation/auth_provider.dart';
 
 class HomeScreen extends HookConsumerWidget {
   HomeScreen({super.key});
@@ -24,18 +25,22 @@ class HomeScreen extends HookConsumerWidget {
 
     final state = ref.watch(homeProvider);
 
-    state.whenData((data) {
-      if (data.signOutSuccess != null) {
-        if (data.signOutSuccess == true) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            context.showSnackBar('Sign out successful');
-          });
-        } else if (data.signOutSuccess == false) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            context.showSnackBar('Sign out failed');
-          });
-        }
-      }
+    ref.listen(authProvider, (previous, next) {
+      next.whenOrNull(
+          data: (data){
+            if(data.isSignedOut == true) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context.showSnackBar('Sign out successful');
+                context.goNamed('signin');
+                ref.read(authProvider.notifier).resetState();
+              });
+            } else if(data.error != null) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context.showSnackBar('Sign out failed');
+              });
+            }
+          }
+      );
     });
 
     return DefaultLayout(
@@ -59,7 +64,7 @@ class HomeScreen extends HookConsumerWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            ref.read(homeProvider.notifier).signOut();
+                            ref.read(authProvider.notifier).signOut();
                             context.pop();
                           },
                           child: const Text('Confirm'),

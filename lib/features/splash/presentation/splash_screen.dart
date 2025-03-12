@@ -17,7 +17,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     super.initState();
 
     Timer(const Duration(seconds: 2), () {
-      context.go('/next');
+      context.go('/');
     });
   }
 

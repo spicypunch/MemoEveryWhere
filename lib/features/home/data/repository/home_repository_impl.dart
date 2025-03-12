@@ -19,19 +19,7 @@ class HomeRepositoryImpl implements HomeRepository {
         .where('userId', isEqualTo: user.uid)
         .orderBy('createdAt', descending: true)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-        .map((doc) => Memo.fromFirestore(doc))
-        .toList());
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Memo.fromFirestore(doc)).toList());
   }
-
-  @override
-  Future<bool> signOut() async {
-    try {
-      await auth.signOut();
-      return true;
-    } catch (e) {
-      print(e);
-      return false;
-    }
-    }
 }
