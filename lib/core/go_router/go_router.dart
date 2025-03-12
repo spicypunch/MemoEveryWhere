@@ -19,7 +19,7 @@ final routerProvider = Provider<GoRouter>(
     return GoRouter(
       initialLocation: '/',
       redirect: (BuildContext context, GoRouterState state) {
-        if (state.uri.path == '/next') {
+        if (state.uri.path == '/') {
           return authState.when(
             data: (data) {
               if (data.isSignedIn) {
@@ -28,10 +28,11 @@ final routerProvider = Provider<GoRouter>(
                 return '/signin';
               }
             },
-            loading: () => null,
+            loading: () => '/signin',
             error: (_, __) => '/signin',
           );
         }
+        return null;
       },
       routes: [
         GoRoute(
@@ -71,7 +72,7 @@ final routerProvider = Provider<GoRouter>(
               },
             ),
             GoRoute(
-              path: '/settings',
+              path: 'settings',
               name: 'setting',
               builder: (context, state) => SettingsScreen(),
             )
