@@ -31,4 +31,12 @@ class HomeProvider extends AsyncNotifier<HomeState> {
     // 초기 상태 반환
     return const HomeState();
   }
+
+  Future<void> signOut() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      final result = await _homeRepository.signOut();
+      return HomeState(signOutSuccess: result);
+    });
+  }
 }

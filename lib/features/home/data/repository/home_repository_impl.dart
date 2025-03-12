@@ -23,4 +23,15 @@ class HomeRepositoryImpl implements HomeRepository {
         .map((doc) => Memo.fromFirestore(doc))
         .toList());
   }
+
+  @override
+  Future<bool> signOut() async {
+    try {
+      await auth.signOut();
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+    }
 }

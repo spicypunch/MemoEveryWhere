@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:memo_everywhere/core/utils/contextExtensions.dart';
 import 'package:memo_everywhere/features/auth/presentation/auth_provider.dart';
 
 import '../../../core/components/default_button.dart';
@@ -24,14 +25,10 @@ class SignInScreen extends HookConsumerWidget {
               context.goNamed("home");
             }
             if (state.error != null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error.toString())),
-              );
+              context.showSnackBar(state.error!);
             }
           },
-          error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(error.toString())),
-          ),
+          error: (error, _) => context.showSnackBar(error.toString())
         );
       },
     );

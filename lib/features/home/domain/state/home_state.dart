@@ -9,6 +9,7 @@ part 'home_state.g.dart';
 class HomeState with _$HomeState {
   const factory HomeState({
     @Default([]) List<Memo> memos,
+    bool? signOutSuccess,
     String? error,
 }) = _HomeState;
 

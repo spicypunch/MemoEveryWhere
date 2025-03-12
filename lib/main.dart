@@ -16,6 +16,8 @@ class _App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       routerConfig: ref.read(routerProvider),
+      debugShowCheckedModeBanner: false,
+
     );
   }
 }
