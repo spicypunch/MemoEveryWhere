@@ -6,7 +6,7 @@ part 'add_state.g.dart';
 @freezed
 class AddState with _$AddState {
   const factory AddState({
-    @Default(false) bool isAdded,
+    bool? isAdded,
     String? error,
   }) = _AddState;
 

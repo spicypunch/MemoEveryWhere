@@ -7,6 +7,7 @@ import 'package:memo_everywhere/core/colors/default_colors.dart';
 import 'package:memo_everywhere/core/components/default_button.dart';
 import 'package:memo_everywhere/core/components/default_layout.dart';
 import 'package:memo_everywhere/core/components/default_text_field.dart';
+import 'package:memo_everywhere/core/utils/contextExtensions.dart';
 
 import '../../../core/models/memo.dart';
 import 'detail_provider.dart';
@@ -42,9 +43,7 @@ class DetailScreen extends HookConsumerWidget {
       next.whenData((data) {
         if (data.updateSuccess == true) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Update successful')),
-            );
+            context.showSnackBar('Update successful');
             memoState.value = memoState.value.copyWith(
               title: titleController.text,
               content: contentController.text,
@@ -54,17 +53,13 @@ class DetailScreen extends HookConsumerWidget {
         }
         if (data.deleteSuccess == true) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Delete successful')),
-            );
+            context.showSnackBar('Delete successful');
           });
           context.pop();
         }
         if (data.error != null) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Update failed: ${data.error}')),
-            );
+            context.showSnackBar('Update failed: ${data.error}');
           });
         }
       });
@@ -74,39 +69,47 @@ class DetailScreen extends HookConsumerWidget {
       title: 'Memo Detail',
       showBackButton: true,
       actions: [
-        IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('Delete Memo'),
-                  content:
-                      const Text('Are you sure you want to delete this memo?'),
-                  backgroundColor: DefaultColors.grey300,
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        context.pop();
-                      },
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        ref
-                            .read(detailProvider.notifier)
-                            .deleteItem(memoState.value.id);
-                        context.pop();
-                      },
-                      child: const Text('Confirm'),
-                    )
-                  ],
-                );
-              },
-            );
-          },
-          icon: const Icon(Icons.delete_forever),
-        )
+        if (isEditing.value)
+          IconButton(
+            onPressed: () {
+              isEditing.value = false;
+            },
+            icon: const Icon(Icons.cancel),
+          )
+        else
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Delete Memo'),
+                    content: const Text(
+                        'Are you sure you want to delete this memo?'),
+                    backgroundColor: DefaultColors.grey300,
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          context.pop();
+                        },
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          ref
+                              .read(detailProvider.notifier)
+                              .deleteItem(memoState.value.id);
+                          context.pop();
+                        },
+                        child: const Text('Confirm'),
+                      )
+                    ],
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.delete_forever),
+          )
       ],
       child: SafeArea(
         child: Padding(
@@ -124,6 +127,7 @@ class DetailScreen extends HookConsumerWidget {
                   ? DefaultTextField(
                       label: '',
                       controller: titleController,
+                      keyboardType: TextInputType.text,
                       height: 50,
                       fontSize: 18,
                       filledColor: DefaultColors.white,
@@ -163,6 +167,7 @@ class DetailScreen extends HookConsumerWidget {
                     ? DefaultTextField(
                         label: '',
                         controller: contentController,
+                        keyboardType: TextInputType.multiline,
                         expands: true,
                         fontSize: 16,
                         filledColor: DefaultColors.white,

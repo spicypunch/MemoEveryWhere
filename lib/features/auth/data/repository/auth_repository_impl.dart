@@ -43,6 +43,11 @@ class AuthRepositoryImpl implements AuthRepository {
     }
   }
 
+  @override
+  User? getCurrentUser() {
+    return firebaseAuth.currentUser;
+  }
+
   // String _handleAuthException(FirebaseAuthException e) {
   //   switch (e.code) {
   //     case 'weak-password':

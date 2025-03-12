@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:memo_everywhere/core/utils/contextExtensions.dart';
 import 'package:memo_everywhere/features/add/domain/state/add_state.dart';
 import 'package:memo_everywhere/features/add/presentation/add_provider.dart';
 
@@ -18,22 +19,22 @@ class AddScreen extends HookConsumerWidget {
       addProvider,
       (previous, next) => next.whenOrNull(
         data: (state) {
-          if (state.isAdded) {
-            context.pop();
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Add Failed')),
-            );
+          if (state.isAdded != null) {
+            if (state.isAdded!) {
+              context.showSnackBar('Add Successful');
+              context.pop();
+            } else if (!state.isAdded!) {
+              context.showSnackBar('Add Failed');
+            }
           }
+
           if (state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error.toString())),
-            );
+            context.showSnackBar(state.error!);
           }
         },
-        error: (error, _) => ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.toString())),
-        ),
+        error: (error, _) => {
+          context.showSnackBar(error.toString()),
+        }
       ),
     );
 
@@ -74,14 +75,13 @@ class AddScreen extends HookConsumerWidget {
               DefaultButton(
                 title: 'Submit',
                 onTap: () {
-                  if (titleController.text.isNotEmpty && contentController.text.isNotEmpty) {
+                  if (titleController.text.isNotEmpty &&
+                      contentController.text.isNotEmpty) {
                     ref
                         .read(addProvider.notifier)
                         .addItem(titleController.text, contentController.text);
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Please fill in all fields')),
-                    );
+                    context.showSnackBar('Please fill in all fields');
                   }
                 },
               ),

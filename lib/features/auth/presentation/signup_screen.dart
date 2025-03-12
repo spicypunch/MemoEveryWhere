@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:memo_everywhere/core/utils/contextExtensions.dart';
 import 'package:memo_everywhere/features/auth/domain/state/auth_state.dart';
 
 import '../../../core/components/default_button.dart';
@@ -59,9 +60,7 @@ class SignUpScreen extends HookConsumerWidget {
             context.pop();
           }
           if (state.error != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error.toString())),
-            );
+            context.showSnackBar(state.error!);
           }
         },
       );
