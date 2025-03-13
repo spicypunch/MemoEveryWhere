@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memo_everywhere/core/utils/contextExtensions.dart';
@@ -9,6 +8,7 @@ import 'package:memo_everywhere/features/auth/presentation/auth_provider.dart';
 import '../../../core/components/default_button.dart';
 import '../../../core/components/default_layout.dart';
 import '../../../core/components/default_text_form_field.dart';
+import '../../home/presentaion/home_provider.dart';
 import '../domain/state/auth_state.dart';
 
 class SignInScreen extends HookConsumerWidget {
@@ -20,16 +20,16 @@ class SignInScreen extends HookConsumerWidget {
       authProvider,
       (previous, next) {
         next.whenOrNull(
-          data: (state) {
-            if (state.isSignedIn) {
-              context.goNamed("home");
-            }
-            if (state.error != null) {
-              context.showSnackBar(state.error!);
-            }
-          },
-          error: (error, _) => context.showSnackBar(error.toString())
-        );
+            data: (state) {
+              if (state.isSignedIn) {
+                ref.read(homeProvider.notifier).refreshSubscription();
+                context.goNamed("home");
+              }
+              if (state.error != null) {
+                context.showSnackBar(state.error!);
+              }
+            },
+            error: (error, _) => context.showSnackBar(error.toString()));
       },
     );
 

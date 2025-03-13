@@ -17,7 +17,7 @@ final routerProvider = Provider<GoRouter>(
     final authState = ref.watch(authProvider);
 
     return GoRouter(
-      initialLocation: '/',
+      initialLocation: '/splash',
       redirect: (BuildContext context, GoRouterState state) {
         if (state.uri.path == '/') {
           return authState.when(
@@ -36,7 +36,7 @@ final routerProvider = Provider<GoRouter>(
       },
       routes: [
         GoRoute(
-          path: '/',
+          path: '/splash',
           name: 'splash',
           builder: (context, state) => SplashScreen(),
         ),

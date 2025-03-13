@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:memo_everywhere/features/auth/domain/repository/auth_repository.dart';
+import 'package:memo_everywhere/features/home/presentaion/home_provider.dart';
 
 import '../domain/state/auth_state.dart';
 
@@ -45,6 +46,7 @@ class AuthProvider extends AsyncNotifier<AuthState> {
 
   Future<void> signOut() async {
     state = const AsyncValue.loading();
+    ref.read(homeProvider.notifier).cleanUp();
     state = await AsyncValue.guard(() async {
       try {
         await _authRepository.signOut();

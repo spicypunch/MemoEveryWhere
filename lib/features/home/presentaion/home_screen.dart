@@ -26,21 +26,19 @@ class HomeScreen extends HookConsumerWidget {
     final state = ref.watch(homeProvider);
 
     ref.listen(authProvider, (previous, next) {
-      next.whenOrNull(
-          data: (data){
-            if(data.isSignedOut == true) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.showSnackBar('Sign out successful');
-                context.goNamed('signin');
-                ref.read(authProvider.notifier).resetState();
-              });
-            } else if(data.error != null) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.showSnackBar('Sign out failed');
-              });
-            }
-          }
-      );
+      next.whenOrNull(data: (data) {
+        if (data.isSignedOut == true) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.showSnackBar('Sign out successful');
+            context.goNamed('signin');
+            ref.read(authProvider.notifier).resetState();
+          });
+        } else if (data.error != null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.showSnackBar('Sign out failed');
+          });
+        }
+      });
     });
 
     return DefaultLayout(

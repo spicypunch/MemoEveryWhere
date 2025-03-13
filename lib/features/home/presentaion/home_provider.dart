@@ -4,20 +4,40 @@ import 'package:memo_everywhere/features/home/domain/repository/home_repository.
 import 'package:memo_everywhere/features/home/domain/state/home_state.dart';
 import 'package:memo_everywhere/core/models/memo.dart';
 
+import '../../auth/presentation/auth_provider.dart';
+
 final homeProvider =
 AsyncNotifierProvider<HomeProvider, HomeState>(() => HomeProvider());
 
 class HomeProvider extends AsyncNotifier<HomeState> {
   late final HomeRepository _homeRepository;
   StreamSubscription<List<Memo>>? _subscription;
+  bool _initialized = false;
 
   @override
   Future<HomeState> build() async {
-    _homeRepository = ref.watch(homeRepositoryProvider);
+    if (!_initialized) {
+      _homeRepository = ref.watch(homeRepositoryProvider);
+      _initialized = true;
+    }
+
+    final authState = ref.watch(authProvider);
+
+    authState.whenData((state) {
+      if (state.isSignedIn) {
+        refreshSubscription();
+      }
+    });
 
     ref.onDispose(() {
       _subscription?.cancel();
     });
+
+    return const HomeState();
+  }
+
+  void refreshSubscription() {
+    _subscription?.cancel();
 
     _subscription = _homeRepository.getMemos().listen(
           (memos) {
@@ -27,7 +47,11 @@ class HomeProvider extends AsyncNotifier<HomeState> {
         state = AsyncValue.error(error, stackTrace);
       },
     );
+  }
 
-    return const HomeState();
+  void cleanUp() {
+    _subscription?.cancel();
+    _subscription = null;
+    state = const AsyncValue.data(HomeState());
   }
 }
