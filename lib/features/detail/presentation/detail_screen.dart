@@ -151,7 +151,7 @@ class DetailScreen extends HookConsumerWidget {
                         ],
                       ),
                       alignment: Alignment.centerLeft,
-                      child: Text(
+                      child: SelectableText(
                         memoState.value.title,
                         style: const TextStyle(fontSize: 18),
                       ),
@@ -191,7 +191,7 @@ class DetailScreen extends HookConsumerWidget {
                           ],
                         ),
                         child: SingleChildScrollView(
-                          child: Text(
+                          child: SelectableText(
                             memoState.value.content,
                             style: const TextStyle(fontSize: 16),
                           ),
