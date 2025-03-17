@@ -72,6 +72,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
                 onChanged: widget.onChanged,
                 maxLines: widget.obscureText ? 1 : (widget.expands ? null : 1),
                 expands: widget.obscureText ? false : widget.expands,
+                textAlignVertical: TextAlignVertical.top,
                 style: TextStyle(
                     fontSize: widget.fontSize, color: DefaultColors.black),
                 decoration: InputDecoration(

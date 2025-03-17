@@ -41,6 +41,22 @@ class AddScreen extends HookConsumerWidget {
     final titleController = useTextEditingController();
     final contentController = useTextEditingController();
 
+    final isFormValid = useState(false);
+
+    useEffect(() {
+      void listener() {
+        isFormValid.value = titleController.text.isNotEmpty && contentController.text.isNotEmpty;
+      }
+
+      titleController.addListener(listener);
+      contentController.addListener(listener);
+
+      return () {
+        titleController.removeListener(listener);
+        contentController.removeListener(listener);
+      };
+    }, [titleController, contentController]);
+
     return DefaultLayout(
       showBackButton: true,
       child: SafeArea(
@@ -74,6 +90,7 @@ class AddScreen extends HookConsumerWidget {
               SizedBox(height: 20),
               DefaultButton(
                 title: 'Submit',
+                isEnabled: isFormValid.value,
                 onTap: () {
                   if (titleController.text.isNotEmpty &&
                       contentController.text.isNotEmpty) {

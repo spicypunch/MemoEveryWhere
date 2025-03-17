@@ -106,8 +106,16 @@ class HomeScreen extends HookConsumerWidget {
       itemBuilder: (context, index) {
         final memo = memos[index];
         return ListTile(
-          title: Text(memo.title),
-          subtitle: Text(memo.content),
+          title: Text(
+            memo.title,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+          subtitle: Text(
+            memo.content,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
           onTap: () {
             context.pushNamed('detail', extra: memo);
           },
