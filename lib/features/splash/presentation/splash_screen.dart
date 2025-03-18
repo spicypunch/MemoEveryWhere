@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:memo_everywhere/core/colors/default_colors.dart';
+import 'package:memo_everywhere/features/auth/presentation/auth_provider.dart';
 
 import '../../../core/components/default_layout.dart';
 
@@ -20,7 +21,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     super.initState();
 
     Timer(const Duration(seconds: 2), () {
-      context.go('/');
+      final authState = ref.read(authProvider);
+
+      authState.whenOrNull(data: (data) {
+        if (data.isSignedIn) {
+          context.goNamed("home");
+        } else {
+          context.goNamed("signin");
+        }
+      }, error: (_, __) {
+        context.goNamed("signin");
+      });
     });
   }
 
