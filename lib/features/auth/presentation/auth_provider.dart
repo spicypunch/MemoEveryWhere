@@ -13,7 +13,17 @@ class AuthProvider extends AsyncNotifier<AuthState> {
   @override
   Future<AuthState> build() async {
     _authRepository = ref.watch(authRepositoryProvider);
+
     final currentUser = _authRepository.getCurrentUser();
+
+    _authRepository.authStateChange().listen((user) {
+      if (user != null) {
+        state = AsyncValue.data(AuthState(isSignedIn: true));
+      } else {
+        state = AsyncValue.data(AuthState());
+      }
+    });
+
     if (currentUser != null) {
       return AuthState(isSignedIn: true);
     }
