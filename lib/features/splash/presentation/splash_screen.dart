@@ -1,42 +1,25 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:memo_everywhere/core/colors/default_colors.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:memo_everywhere/features/auth/presentation/auth_provider.dart';
 
+import '../../../core/colors/default_colors.dart';
 import '../../../core/components/default_layout.dart';
 
-class SplashScreen extends ConsumerStatefulWidget {
+class SplashScreen extends HookConsumerWidget {
   const SplashScreen({super.key});
 
   @override
-  ConsumerState<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends ConsumerState<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-
-    Timer(const Duration(seconds: 2), () {
-      final authState = ref.read(authProvider);
-
-      authState.whenOrNull(data: (data) {
-        if (data.isSignedIn) {
-          context.goNamed("home");
-        } else {
-          context.goNamed("signin");
-        }
-      }, error: (_, __) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // authProvider의 상태를 비동기적으로 확인
+    ref.read(authProvider.future).then((authState) {
+      if (authState.isSignedIn) {
+        context.goNamed("home");
+      } else {
         context.goNamed("signin");
-      });
+      }
     });
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return DefaultLayout(
       child: Center(
         child: Text(
