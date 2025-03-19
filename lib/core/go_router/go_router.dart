@@ -10,7 +10,6 @@ import '../../features/auth/presentation/signin_screen.dart';
 import '../../features/auth/presentation/signup_screen.dart';
 import '../../features/detail/presentation/detail_screen.dart';
 import '../../features/home/presentaion/home_screen.dart';
-import '../../features/settings/presentation/settings_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
@@ -19,19 +18,6 @@ final routerProvider = Provider<GoRouter>(
     return GoRouter(
       initialLocation: '/splash',
       redirect: (BuildContext context, GoRouterState state) {
-        if (state.uri.path == '/') {
-          return authState.when(
-            data: (data) {
-              if (data.isSignedIn) {
-                return '/home';
-              } else {
-                return '/signin';
-              }
-            },
-            loading: () => '/signin',
-            error: (_, __) => '/signin',
-          );
-        }
         return null;
       },
       routes: [
@@ -41,16 +27,17 @@ final routerProvider = Provider<GoRouter>(
           builder: (context, state) => SplashScreen(),
         ),
         GoRoute(
-            path: '/signin',
-            name: 'signin',
-            builder: (context, state) => SignInScreen(),
-            routes: [
-              GoRoute(
-                path: '/signup',
-                name: 'signup',
-                builder: (context, state) => SignUpScreen(),
-              ),
-            ]),
+          path: '/signin',
+          name: 'signin',
+          builder: (context, state) => SignInScreen(),
+          routes: [
+            GoRoute(
+              path: '/signup',
+              name: 'signup',
+              builder: (context, state) => SignUpScreen(),
+            ),
+          ],
+        ),
         GoRoute(
           path: '/add',
           name: 'add',
@@ -71,11 +58,6 @@ final routerProvider = Provider<GoRouter>(
                 );
               },
             ),
-            GoRoute(
-              path: 'settings',
-              name: 'setting',
-              builder: (context, state) => SettingsScreen(),
-            )
           ],
         ),
       ],

@@ -44,6 +44,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Stream<User?> authStateChange() {
+    return auth.authStateChanges();
+  }
+
+  @override
   User? getCurrentUser() {
     return auth.currentUser;
   }
