@@ -135,14 +135,11 @@ memo_everywhere/
   - `cloud_firestore`: 클라우드 데이터베이스
 
 - **개발 도구**:
-  - `json_serializable`: JSON 직렬화 코드 생성
-  - `build_runner`: 코드 생성 자동화
-  - `freezed`: 불변 데이터 클래스 생성기
+  - `AndroidStudio`: meerkat
 
 ## 향후 개발 계획
 
-- Windows 및 macOS 데스크톱 지원 추가
-- 오프라인 모드 구현
+- Web 지원
 - 메모 공유 기능
 - 마크다운 지원
 - 테마 커스터마이징
@@ -150,9 +147,3 @@ memo_everywhere/
 ## 라이센스
 
 이 프로젝트는 MIT 라이센스 하에 배포됩니다.
-
-## 연락처
-
-개발자: [이름]  
-이메일: [이메일 주소]  
-GitHub: [GitHub 프로필 링크]
