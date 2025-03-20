@@ -15,7 +15,7 @@ Memo Everywhere는 안드로이드, iOS 플랫폼에서 동작하는 메모 앱�
 ## 기술 스택
 
 - **프레임워크**: Flutter (SDK ^3.6.0)
-- **상태 관리**: Hooks Riverpod, Flutter Hooks
+- **상태 관리**: Riverpod
 - **라우팅**: Go Router
 - **백엔드**: Firebase (Authentication, Cloud Firestore)
 - **데이터 모델링**: Freezed, JSON Serialization
