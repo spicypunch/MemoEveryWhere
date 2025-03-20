@@ -6,6 +6,17 @@ Memo Everywhere는 안드로이드, iOS 플랫폼에서 동작하는 메모 앱�
 
 개인적인 API Key, 깃 토큰, 계정 정보 등의 내용들을 여러 플랫폼에서 확인해 보세요.
 
+#### 로그인 / 회원가입
+<img src="https://github.com/user-attachments/assets/e75cd2b0-848c-4eb1-9295-019b3039d93c", width=200>
+![7](https://github.com/user-attachments/assets/d91454ac-7bfa-41a4-aeb3-cb271daee022)
+![6](https://github.com/user-attachments/assets/0cf3cf2b-1492-44d5-9047-44bca0c70761)
+![5](https://github.com/user-attachments/assets/d0df600a-de3c-4239-a1ac-33599ae48db8)
+![4](https://github.com/user-attachments/assets/14a7745c-dd34-4a1f-bde8-252e2e7f428a)
+![3](https://github.com/user-attachments/assets/e24cd4ab-ed46-4021-b784-4193b765f291)
+![2](https://github.com/user-attachments/assets/8ab1784f-433c-4237-8ac2-71f1c77eb59e)
+![1]()
+
+
 ## 주요 기능
 
 - 크로스 플랫폼 메모 앱
