@@ -131,7 +131,6 @@ memo_everywhere/
   - `freezed_annotation`: 불변 데이터 클래스 생성
 
 - **백엔드 통합**:
-  - `firebase_core`: Firebase 핵심 기능
   - `firebase_auth`: 사용자 인증
   - `cloud_firestore`: 클라우드 데이터베이스
 
