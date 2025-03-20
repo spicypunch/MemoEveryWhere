@@ -20,13 +20,97 @@ Memo Everywhere는 안드로이드, iOS 플랫폼에서 동작하는 메모 앱�
 ## 프로젝트 구조
 
 ```
-lib/
-  ├── models/       # Freezed로 생성된 데이터 모델
-  ├── services/     # Firebase 및 기타 서비스
-  ├── providers/    # Riverpod 프로바이더
-  ├── screens/      # UI 화면
-  ├── widgets/      # 재사용 가능한 위젯
-  └── main.dart     # 앱 진입점
+memo_everywhere/
+│
+├── core/
+│   ├── colors/
+│   │   └── default_colors.dart
+│   ├── components/
+│   │   ├── default_button.dart
+│   │   ├── default_layout.dart
+│   │   ├── default_text_field.dart
+│   │   └── default_text_form_field.dart
+│   ├── go_router/
+│   │   └── go_router.dart
+│   ├── log/
+│   │   └── provider_observer.dart
+│   ├── models/
+│   │   ├── memo.dart
+│   │   ├── memo.freezed.dart
+│   │   └── memo.g.dart
+│   ├── provider/
+│   │   └── firebase_provider.dart
+│   └── utils/
+│       └── contextExtensions.dart
+│
+├── features/
+│   ├── add/
+│   │   ├── data/
+│   │   │   └── repository/
+│   │   │       └── add_repository_impl.dart
+│   │   ├── domain/
+│   │   │   ├── repository/
+│   │   │   │   └── add_repository.dart
+│   │   │   └── state/
+│   │   │       ├── add_state.dart
+│   │   │       ├── add_state.freezed.dart
+│   │   │       └── add_state.g.dart
+│   │   └── presentation/
+│   │       ├── add_provider.dart
+│   │       └── add_screen.dart
+│   │
+│   ├── auth/
+│   │   ├── data/
+│   │   │   └── repository/
+│   │   │       └── auth_repository_impl.dart
+│   │   ├── domain/
+│   │   │   ├── repository/
+│   │   │   │   └── auth_repository.dart
+│   │   │   └── state/
+│   │   │       ├── auth_state.dart
+│   │   │       ├── auth_state.freezed.dart
+│   │   │       └── auth_state.g.dart
+│   │   └── presentation/
+│   │       ├── auth_provider.dart
+│   │       ├── signin_screen.dart
+│   │       └── signup_screen.dart
+│   │
+│   ├── detail/
+│   │   ├── data/
+│   │   │   └── repository/
+│   │   │       └── detail_repository_impl.dart
+│   │   ├── domain/
+│   │   │   ├── repository/
+│   │   │   │   └── detail_repository.dart
+│   │   │   └── state/
+│   │   │       ├── detail_state.dart
+│   │   │       ├── detail_state.freezed.dart
+│   │   │       └── detail_state.g.dart
+│   │   └── presentation/
+│   │       ├── detail_provider.dart
+│   │       └── detail_screen.dart
+│   │
+│   ├── home/
+│   │   ├── data/
+│   │   │   └── repository/
+│   │   │       └── home_repository_impl.dart
+│   │   ├── domain/
+│   │   │   ├── repository/
+│   │   │   │   └── home_repository.dart
+│   │   │   └── state/
+│   │   │       ├── home_state.dart
+│   │   │       ├── home_state.freezed.dart
+│   │   │       └── home_state.g.dart
+│   │   └── presentation/
+│   │       ├── home_provider.dart
+│   │       └── home_screen.dart
+│   │
+│   └── splash/
+│       └── presentation/
+│           └── splash_screen.dart
+│
+├── firebase_options.dart
+└── main.dart
 ```
 
 ## 사용된 패키지
