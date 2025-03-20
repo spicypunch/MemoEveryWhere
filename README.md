@@ -124,7 +124,6 @@ memo_everywhere/
   - `go_router`: 라우팅 관리
 
 - **상태 관리**:
-  - `flutter_hooks`: React hooks 스타일의 상태 관리
   - `hooks_riverpod`: Riverpod 상태 관리와 hooks 통합
 
 - **데이터 처리**:
