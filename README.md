@@ -129,7 +129,6 @@ memo_everywhere/
 - **데이터 처리**:
   - `json_annotation`: JSON 직렬화 지원
   - `freezed_annotation`: 불변 데이터 클래스 생성
-  - `intl`: 국제화 및 날짜 포맷팅
 
 - **백엔드 통합**:
   - `firebase_core`: Firebase 핵심 기능
