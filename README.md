@@ -7,6 +7,7 @@ Memo Everywhere는 안드로이드, iOS, Web에서 동작하는 메모 앱으로
 개인적인 API Key, 깃 토큰, 계정 정보 등의 내용들을 여러 플랫폼에서 확인해 보세요.
 
 [👉Web](https://memoeverywhere-b3cfb.web.app/)
+
 [👉Android](https://github.com/spicypunch/MemoEveryWhere/releases/tag/v1.0.0)
 
 #### 로그인 / 회원가입
