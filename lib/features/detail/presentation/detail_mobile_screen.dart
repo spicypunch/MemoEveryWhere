@@ -15,10 +15,7 @@ import 'detail_provider.dart';
 class DetailMobile extends HookConsumerWidget {
   final Memo memo;
 
-  const DetailMobile({
-    super.key,
-    required this.memo,
-  });
+  const DetailMobile({super.key, required this.memo});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
