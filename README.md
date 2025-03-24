@@ -13,10 +13,10 @@ Memo Everywhere는 안드로이드, iOS, Web에서 동작하는 메모 앱으로
 
 #### 홈 화면
 - 모바일
-<img src = "https://github.com/user-attachments/assets/e24cd4ab-ed46-4021-b784-4193b765f291" width = "200">
+<img src = "https://github.com/user-attachments/assets/f90ac44c-0b41-4014-9a5f-3fa29af33081" width = "200">
 
 - web
-<img src = "https://github.com/user-attachments/assets/99aa1033-2f4e-4b6d-b4c1-78e5e803d60f" width = "800">
+<img src = "https://github.com/user-attachments/assets/19e10c7e-b8f2-4df2-88c1-ce200fabcdd6" width = "800">
 
 #### 글 작성
 <img src = "https://github.com/user-attachments/assets/d91454ac-7bfa-41a4-aeb3-cb271daee022" width = "200">
