@@ -54,7 +54,7 @@ memo_everywhere/
 │   │   ├── default_layout.dart
 │   │   ├── default_text_field.dart
 │   │   └── default_text_form_field.dart
-│   ├── config/
+│   ├── config/
 │   │   ├── firebase_config.dart
 │   ├── go_router/
 │   │   └── go_router.dart
