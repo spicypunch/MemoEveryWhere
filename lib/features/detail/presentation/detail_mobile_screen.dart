@@ -12,10 +12,10 @@ import 'package:memo_everywhere/core/utils/contextExtensions.dart';
 import '../../../core/models/memo.dart';
 import 'detail_provider.dart';
 
-class DetailScreen extends HookConsumerWidget {
+class DetailMobile extends HookConsumerWidget {
   final Memo memo;
 
-  const DetailScreen({
+  const DetailMobile({
     super.key,
     required this.memo,
   });

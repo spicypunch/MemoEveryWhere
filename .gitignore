@@ -11,6 +11,7 @@
 .packages
 .pub-cache/
 .pub/
+lib/core/config/firebase_config.dart
 build/
 coverage/
 lib/generated_plugin_registrant.dart
