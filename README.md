@@ -1,6 +1,6 @@
 # Memo Everywhere
 
-Memo Everywhere는 안드로이드, iOS 플랫폼에서 동작하는 메모 앱으로, Firebase를 통해 데이터를 저장하여 어디서나 접근할 수 있어요.
+Memo Everywhere는 안드로이드, iOS, Web에서 동작하는 메모 앱으로, Firebase를 통해 데이터를 저장하여 어디서나 접근할 수 있어요.
 
 집의 윈도우와 사무실의 mac, 모바일과 PC 어디든 메모를 하고 메모한 내용을 볼 수 있어요.
 
@@ -16,7 +16,7 @@ Memo Everywhere는 안드로이드, iOS 플랫폼에서 동작하는 메모 앱�
 <img src = "https://github.com/user-attachments/assets/e24cd4ab-ed46-4021-b784-4193b765f291" width = "200">
 
 - web
-<img src = "https://github.com/user-attachments/assets/6a43fd8a-fe4e-429f-8d77-5d846722201e" width = "800">
+<img src = "https://github.com/user-attachments/assets/6871c6fb-8cf9-44df-8342-a49def580147" width = "800">
 
 #### 글 작성
 <img src = "https://github.com/user-attachments/assets/d91454ac-7bfa-41a4-aeb3-cb271daee022" width = "200">
@@ -30,7 +30,7 @@ Memo Everywhere는 안드로이드, iOS 플랫폼에서 동작하는 메모 앱�
 
 - 크로스 플랫폼 메모 앱
 - Firebase를 통한 클라우드 저장 및 동기화
-- 어디서든 메모 접근 가능
+- 어디서든 메모 추가, 수정, 삭제 가능
 
 ## 기술 스택
 
@@ -112,7 +112,8 @@ memo_everywhere/
 │   │   │       └── detail_state.g.dart
 │   │   └── presentation/
 │   │       ├── detail_provider.dart
-│   │       └── detail_screen.dart
+│   │       ├── detail_desktop_screen.dart
+│   │       └── detail_mobile_screen.dart
 │   │
 │   ├── home/
 │   │   ├── data/
@@ -159,7 +160,7 @@ memo_everywhere/
 
 ## 향후 개발 계획
 
-- Web 지원
+- macOS 지원(빌드 에러 확인 중)
 - 메모 공유 기능
 - 마크다운 지원
 - 테마 커스터마이징
