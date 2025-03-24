@@ -12,7 +12,10 @@ Memo Everywhere는 안드로이드, iOS 플랫폼에서 동작하는 메모 앱�
 <img src = "https://github.com/user-attachments/assets/8ab1784f-433c-4237-8ac2-71f1c77eb59e" width = "200">
 
 #### 홈 화면
+- 모바일
 <img src = "https://github.com/user-attachments/assets/e24cd4ab-ed46-4021-b784-4193b765f291" width = "200">
+- web
+<img src = "https://github.com/user-attachments/assets/6a43fd8a-fe4e-429f-8d77-5d846722201e" width = "200">
 
 #### 글 작성
 <img src = "https://github.com/user-attachments/assets/d91454ac-7bfa-41a4-aeb3-cb271daee022" width = "200">
