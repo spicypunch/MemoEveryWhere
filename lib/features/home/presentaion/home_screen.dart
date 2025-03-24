@@ -129,11 +129,19 @@ class HomeScreen extends HookConsumerWidget {
   }
 
   Widget _buildDesktopLayout(List<Memo> memos) {
-    final selectedMemoState = useState<Memo?>(memos.isNotEmpty ? memos[0] : null);
+    final selectedMemoState =
+        useState<Memo?>(memos.isNotEmpty ? memos[0] : null);
+
+    useEffect(() {
+      if (selectedMemoState.value != null &&
+          !memos.any((memo) => memo.id == selectedMemoState.value!.id)) {
+        selectedMemoState.value = memos.isNotEmpty ? memos[0] : null;
+      }
+      return null;
+    }, [memos]);
 
     return Row(
       children: [
-        // 왼쪽 패널 - 메모 리스트
         Container(
           width: 300,
           decoration: BoxDecoration(
@@ -155,7 +163,8 @@ class HomeScreen extends HookConsumerWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
-                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      fontWeight:
+                          isSelected ? FontWeight.bold : FontWeight.normal,
                     ),
                   ),
                   subtitle: Text(
@@ -171,8 +180,6 @@ class HomeScreen extends HookConsumerWidget {
             },
           ),
         ),
-
-        // 오른쪽 패널 - 선택된 메모 상세 내용
         Expanded(
           child: selectedMemoState.value != null
               ? DetailDesktop(memo: selectedMemoState.value!)

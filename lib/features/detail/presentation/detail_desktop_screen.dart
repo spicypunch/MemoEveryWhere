@@ -1,4 +1,3 @@
-// 추가할 DetailContent 위젯
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -11,7 +10,7 @@ import '../../../core/models/memo.dart';
 class DetailDesktop extends HookConsumerWidget {
   final Memo memo;
 
-  const DetailDesktop({Key? key, required this.memo}) : super(key: key);
+  const DetailDesktop({super.key, required this.memo});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
