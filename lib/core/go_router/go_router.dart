@@ -8,7 +8,7 @@ import 'package:memo_everywhere/features/splash/presentation/splash_screen.dart'
 import '../../features/auth/presentation/auth_provider.dart';
 import '../../features/auth/presentation/signin_screen.dart';
 import '../../features/auth/presentation/signup_screen.dart';
-import '../../features/detail/presentation/detail_screen.dart';
+import '../../features/detail/presentation/detail_mobile_screen.dart';
 import '../../features/home/presentaion/home_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
@@ -53,7 +53,7 @@ final routerProvider = Provider<GoRouter>(
               name: 'detail',
               builder: (context, state) {
                 final memo = state.extra as Memo;
-                return DetailScreen(
+                return DetailMobile(
                   memo: memo,
                 );
               },
