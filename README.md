@@ -54,6 +54,8 @@ memo_everywhere/
 │   │   ├── default_layout.dart
 │   │   ├── default_text_field.dart
 │   │   └── default_text_form_field.dart
+│   ├── config/
+│   │   ├── firebase_config.dart
 │   ├── go_router/
 │   │   └── go_router.dart
 │   ├── log/
@@ -156,7 +158,7 @@ memo_everywhere/
   - `cloud_firestore`: 클라우드 데이터베이스
 
 - **개발 도구**:
-  - `AndroidStudio`: meerkat
+  - `AndroidStudio`: meerkat version
 
 ## 향후 개발 계획
 
