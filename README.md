@@ -25,7 +25,7 @@ Easily check your personal API keys, Git tokens, account information, and more a
 ### Mobile
 <img src="https://github.com/user-attachments/assets/f90ac44c-0b41-4014-9a5f-3fa29af33081" width="200">
 
-### Web
+### Desktop
 <img src="https://github.com/user-attachments/assets/19e10c7e-b8f2-4df2-88c1-ce200fabcdd6" width="800">
 
 ---
