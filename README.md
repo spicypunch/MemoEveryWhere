@@ -6,8 +6,7 @@ Memo Everywhere는 안드로이드, iOS, Web에서 동작하는 메모 앱으로
 
 개인적인 API Key, 깃 토큰, 계정 정보 등의 내용들을 여러 플랫폼에서 확인해 보세요.
 
-[![Web](https://img.shields.io/badge/chrome-%#4285F4.svg?style=for-the-badge&logo=chrome&logoColor=white)](http://memoeverywhere-b3cfb.web.app/)
-[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/%EC%A2%85%EB%AF%BC-%EA%B9%80-92243a216/)
+[![Web](https://img.shields.io/badge/googlechrome-%#4285F4.svg?style=for-the-badge&logo=googlechrome&logoColor=white)](http://memoeverywhere-b3cfb.web.app/)
 
 #### 로그인 / 회원가입
 
