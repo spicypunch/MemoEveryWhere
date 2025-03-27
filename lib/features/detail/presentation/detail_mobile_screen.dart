@@ -81,8 +81,7 @@ class DetailMobile extends HookConsumerWidget {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text('Delete Memo'),
-                    content: const Text(
-                        'Are you sure you want to delete this memo?'),
+                    content: const Text('Are you sure you want to delete this memo?'),
                     backgroundColor: DefaultColors.grey300,
                     actions: [
                       TextButton(
