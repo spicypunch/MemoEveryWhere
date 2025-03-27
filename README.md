@@ -26,7 +26,7 @@ Easily check your personal API keys, Git tokens, account information, and more a
 <img src="https://github.com/user-attachments/assets/f90ac44c-0b41-4014-9a5f-3fa29af33081" width="200">
 
 ### Desktop
-<img src="https://github.com/user-attachments/assets/19e10c7e-b8f2-4df2-88c1-ce200fabcdd6" width="800">
+<img src="https://github.com/user-attachments/assets/3c0faa6d-54ee-48fa-a23e-38c0514fbe90" width="800">
 
 ---
 
@@ -44,6 +44,9 @@ Easily check your personal API keys, Git tokens, account information, and more a
 <img src="https://github.com/user-attachments/assets/0cf3cf2b-1492-44d5-9047-44bca0c70761" width="200">
 
 ### Desktop
+<img src="https://github.com/user-attachments/assets/62a3bdff-4a2d-4c8a-9e96-ff60da022926" width="800">
+<img src="https://github.com/user-attachments/assets/97b2f58d-f76e-4c54-8ebb-77759495b6c3" width="800">
+<img src="https://github.com/user-attachments/assets/86648410-2ef5-4cf2-946f-2651d1c3e6bb" width="800">
 
 ---
 
