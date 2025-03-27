@@ -183,7 +183,7 @@ class HomeScreen extends HookConsumerWidget {
         Expanded(
           child: selectedMemoState.value != null
               ? DetailDesktop(memo: selectedMemoState.value!)
-              : const Center(child: Text('선택된 메모가 없습니다')),
+              : const Center(child: Text('No Memo Selected')),
         ),
       ],
     );
