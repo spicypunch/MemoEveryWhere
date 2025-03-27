@@ -38,9 +38,12 @@ Easily check your personal API keys, Git tokens, account information, and more a
 
 ## Detail View / Edit / Delete Note
 
+### Mobile
 <img src="https://github.com/user-attachments/assets/14a7745c-dd34-4a1f-bde8-252e2e7f428a" width="200">  
 <img src="https://github.com/user-attachments/assets/d0df600a-de3c-4239-a1ac-33599ae48db8" width="200">  
 <img src="https://github.com/user-attachments/assets/0cf3cf2b-1492-44d5-9047-44bca0c70761" width="200">
+
+### Desktop
 
 ---
 
