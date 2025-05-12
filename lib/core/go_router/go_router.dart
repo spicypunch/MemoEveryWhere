@@ -13,8 +13,6 @@ import '../../features/home/presentaion/home_screen.dart';
 
 final routerProvider = Provider<GoRouter>(
   (ref) {
-    final authState = ref.watch(authProvider);
-
     return GoRouter(
       initialLocation: '/splash',
       redirect: (BuildContext context, GoRouterState state) {

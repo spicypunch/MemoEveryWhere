@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:memo_everywhere/core/components/default_alert_dialog.dart';
 import 'package:memo_everywhere/core/components/default_layout.dart';
 import 'package:memo_everywhere/core/components/default_text_field.dart';
 import 'package:memo_everywhere/core/utils/contextExtensions.dart';
@@ -115,10 +115,10 @@ class DetailDesktop extends HookConsumerWidget {
                   ),
                 if (isEditing.value)
                   IconButton(
-                    icon: const Icon(Icons.cancel),
                     onPressed: () {
                       isEditing.value = false;
                     },
+                    icon: const Icon(Icons.cancel),
                   )
                 else
                   IconButton(
@@ -126,29 +126,14 @@ class DetailDesktop extends HookConsumerWidget {
                     onPressed: () {
                       showDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text('Delete Memo'),
-                            content: const Text(
-                                'Are you sure you want to delete this memo?'),
-                            backgroundColor: DefaultColors.grey300,
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  context.pop();
-                                },
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  ref
-                                      .read(detailProvider.notifier)
-                                      .deleteItem(memoState.value.id);
-                                  context.pop();
-                                },
-                                child: const Text('Confirm'),
-                              )
-                            ],
+                        builder: (BuildContext dialogContext) {
+                          return DefaultAlertDialog(
+                            onPressed: () {
+                              ref
+                                  .read(detailProvider.notifier)
+                                  .deleteItem(memoState.value.id);
+                              Navigator.of(dialogContext).pop();
+                            },
                           );
                         },
                       );
