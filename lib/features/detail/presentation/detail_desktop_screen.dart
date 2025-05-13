@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:memo_everywhere/core/components/default_alert_dialog.dart';
@@ -153,9 +154,19 @@ class DetailDesktop extends HookConsumerWidget {
                       expands: true,
                     )
                   : SingleChildScrollView(
-                      child: SelectableText(
-                        memoState.value.content,
+                      child: SelectableLinkify(
+                        onOpen: ref.read(detailProvider.notifier).onOpen,
+                        text: memoState.value.content,
                         style: const TextStyle(fontSize: 16, height: 1.5),
+                        linkStyle: const TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                          fontSize: 16,
+                          height: 1.5,
+                        ),
+                        options: const LinkifyOptions(
+                          humanize: false,
+                        ),
                       ),
                     ),
             ),
