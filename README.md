@@ -56,7 +56,7 @@ Easily check your personal API keys, Git tokens, account information, and more a
 <img src="https://github.com/user-attachments/assets/cc3d8c58-6b46-4ece-a22c-ba93bf203b2d" width="200">
 
 ### Web
-<img src="https://github.com/user-attachments/assets/f9c8bc22-4718-406c-aeb7-512d00f57712" width="200">
+<img src="https://github.com/user-attachments/assets/f9c8bc22-4718-406c-aeb7-512d00f57712" width="800">
 
 ---
 
